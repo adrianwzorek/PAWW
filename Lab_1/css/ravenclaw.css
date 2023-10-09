@@ -1,8 +1,7 @@
 * {
   margin: 0;
   position: relative;
-  background-color: antiquewhite;
-  background-size: calc(100%);
+  background-color: rgb(97, 162, 180);
   color: #000;
 }
 .main_g {
@@ -49,6 +48,8 @@ th {
   color: rgb(255, 255, 255);
   font-size: calc(130%);
   vertical-align: top;
+  text-shadow: 1px 0 0 #000, 0 -1px 0 #000, 0 1px 0 #000, -1px 0 0 #000;
+
 }
 
 .hero {
@@ -67,7 +68,6 @@ th {
   height: 400px;
   width: calc(30%);
   background-position: calc(50%);
-  /* background-blend-mode: hard-light; */
 }
 
 th > img {
@@ -97,7 +97,8 @@ th > img:hover {
   font-size: 50px;
   left: calc(40%);
   border: 15px double black;
-  color: rgb(244, 66, 66);
+  color: rgb(85, 131, 245);
+  text-shadow: 1px 0 0 #000, 0 -1px 0 #000, 0 1px 0 #000, -1px 0 0 #000;
 }
 
 footer {

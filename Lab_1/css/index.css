@@ -125,6 +125,7 @@ footer {
   background-image: url(./Pictures/The_Wizarding_World_of_Harry_Potter_09.jpg);
   background-position: calc(50%);
   background-size: cover;
+  margin-bottom: 20px;
 }
 
 #hogwart:hover {
@@ -142,4 +143,13 @@ footer {
 
 h1 {
   text-align: center;
+}
+
+i {
+  float: right;
+  margin: 10px 20px;
+}
+
+i:hover {
+  cursor: pointer;
 }

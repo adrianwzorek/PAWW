@@ -1,8 +1,7 @@
 * {
   margin: 0;
   position: relative;
-  /* background-image: url(./Pictures/gryffindor-colors-vertical-pattern-of8ps396ywncbvnq.jpg); */
-  background-color: antiquewhite;
+  background-color: rgb(229, 78, 44);
   background-size: calc(100%);
   color: #000;
 }
@@ -25,7 +24,6 @@ footer {
 }
 
 .back {
-  /* border: 2px double red ; */
   width: calc(20%);
   height: 200px;
   font-size: 30px;
@@ -50,6 +48,7 @@ th {
   color: rgb(255, 255, 255);
   font-size: calc(110%);
   vertical-align: top;
+  text-shadow: 1px 0 0 #000, 0 -1px 0 #000, 0 1px 0 #000, -1px 0 0 #000;
 }
 
 .hero {
@@ -88,7 +87,6 @@ th > img:hover {
 
 .__info {
   font-size: calc(250%);
-  /* border: 2px double blue ; */
   margin: 50px;
   padding: 50px;
 }
@@ -99,6 +97,7 @@ th > img:hover {
   left: calc(40%);
   border: 15px double black;
   color: rgb(244, 66, 66);
+  text-shadow: 1px 0 0 #000, 0 -1px 0 #000, 0 1px 0 #000, -1px 0 0 #000;
 }
 
 footer {
