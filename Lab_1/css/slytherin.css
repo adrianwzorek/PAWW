@@ -1,7 +1,6 @@
 * {
   margin: 0;
   position: relative;
-  /* background-image: url(./Pictures/gryffindor-colors-vertical-pattern-of8ps396ywncbvnq.jpg); */
   background-color: antiquewhite;
   background-size: calc(100%);
   color: #000;
@@ -25,7 +24,6 @@ footer {
 }
 
 .back {
-  /* border: 2px double red ; */
   width: calc(20%);
   height: 200px;
   font-size: 30px;
@@ -37,7 +35,7 @@ h1 {
 }
 
 table {
-  background-color: red;
+  background-color: green;
   width: calc(100%);
   height: 850px;
   color: wheat;
@@ -45,17 +43,18 @@ table {
 }
 
 th {
-  background-image: url(./Pictures/Gryf/gryffindor-colors-vertical-pattern-of8ps396ywncbvnq.jpg);
+  background-image: url(./Pictures/Slyth/slytherin-aesthetic-dark-green-fabric-8ppb4ymzkqmscz5n.webp);
   background-size: cover;
-  color: rgb(255, 255, 255);
+  color: rgb(51, 244, 83);
   font-size: calc(110%);
   vertical-align: top;
 }
 
 .hero {
-  width: calc(20%);
-  height: 450px;
-  background-image: url(./Pictures/Gryf/GodrykGryffindorPottermore.webp);
+  background-image: url(./Pictures/Slyth/Salazarslytherin.webp);
+  background-size: contain;
+  width: calc(25%);
+  height: 30rem;
   background-size: cover;
   background-position: calc(50%);
   border-radius: 50%;
@@ -63,14 +62,16 @@ th {
 }
 
 .hero:hover {
-  background-image: url(./Pictures/Gryf/hogwarts-legacy-houses-1.jpg);
+  background-image: url(./Pictures/Slyth/hogwarts-legacy-houses-2-900x506.jpg);
   background-size: cover;
   height: 400px;
   width: calc(30%);
   background-position: calc(50%);
 }
 
-th > img {
+th > div,
+img {
+  background-image: url(./Pictures/Slyth/Voldemort16lat.webp);
   border-radius: 100%;
   width: calc(20%);
   height: calc(50%);
@@ -86,9 +87,12 @@ th > img:hover {
   z-index: 1;
 }
 
+th > div:hover {
+  background-image: url(./Pictures/Slyth/Mariddle.webp);
+}
+
 .__info {
   font-size: calc(250%);
-  /* border: 2px double blue ; */
   margin: 50px;
   padding: 50px;
 }
@@ -98,7 +102,7 @@ th > img:hover {
   font-size: 50px;
   left: calc(40%);
   border: 15px double black;
-  color: rgb(244, 66, 66);
+  color: rgb(13, 127, 32);
 }
 
 footer {
