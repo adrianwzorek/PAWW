@@ -1,0 +1,123 @@
+* {
+  margin: 0;
+  position: relative;
+  /* background-image: url(./Pictures/gryffindor-colors-vertical-pattern-of8ps396ywncbvnq.jpg); */
+  background-color: antiquewhite;
+  background-size: calc(100%);
+  color: #000;
+}
+.main_g {
+  margin: 2px;
+}
+footer {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  background-color: white;
+  text-align: center;
+  z-index: 1;
+  margin: 0;
+  padding: 0;
+}
+
+.mail:hover {
+  cursor: pointer;
+}
+
+.back {
+  /* border: 2px double red ; */
+  width: calc(20%);
+  height: 200px;
+  font-size: 30px;
+  text-decoration: none;
+}
+
+h1 {
+  text-align: center;
+}
+
+table {
+  background-color: green;
+  width: calc(100%);
+  height: 850px;
+  color: wheat;
+  margin: 50px 50px 0px 0px;
+}
+
+th {
+  background-image: url(./Pictures/Gryf/gryffindor-colors-vertical-pattern-of8ps396ywncbvnq.jpg);
+  background-size: cover;
+  color: rgb(255, 255, 255);
+  font-size: calc(110%);
+  vertical-align: top;
+}
+
+.godryk {
+  width: calc(20%);
+  height: 450px;
+  background-image: url(./Pictures/Gryf/GodrykGryffindorPottermore.webp);
+  background-size: cover;
+  background-position: calc(50%);
+  border-radius: 50%;
+  float: right;
+}
+
+.godryk:hover {
+  background-image: url(./Pictures/Gryf/hogwarts-legacy-houses-1.jpg);
+  background-size: cover;
+  height: 400px;
+  width: calc(30%);
+  background-position: calc(50%);
+  background-blend-mode: hard-light;
+}
+
+th > img {
+  border-radius: 100%;
+  width: calc(20%);
+  height: calc(50%);
+  position: sticky;
+  float: right;
+  margin: 10px;
+  width: 200px;
+  height: 250px;
+}
+
+th > img:hover {
+  scale: calc(120%);
+  z-index: 1;
+}
+
+.gryfindor__info {
+  font-size: calc(250%);
+  /* border: 2px double blue ; */
+  margin: 50px;
+  padding: 50px;
+}
+
+#people {
+  float: calc(50);
+  font-size: 50px;
+  left: calc(40%);
+  border: 15px double black;
+  color: rgb(244, 66, 66);
+}
+
+footer {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  background-color: white;
+  text-align: center;
+  z-index: 1;
+  margin: 0;
+  padding: 0;
+}
+
+.herb:hover {
+  cursor: pointer;
+  opacity: calc(50%);
+}
+
+.title {
+  font-size: 30px;
+}
