@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pl">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -16,34 +16,45 @@
         enctype="text/plain"
       >
         <br />
-        <div class="place">Imię:</div>
-        <input
-          type="text"
-          name="name"
-          placeholder="Napisz imię"
-          class="write__place"
-        />
-        <br />
+        <div class="place">
+          <span>Imię:</span>
+          <input
+            type="text"
+            name="name"
+            placeholder="Napisz imię"
+            class="write__place"
+          />
+        </div>
 
-        <div class="place">E-mail:</div>
-        <input
-          type="text"
-          name="e-mail"
-          placeholder="E-Mail"
-          class="write__place"
-        /><br />
+        <div class="place">
+          <span> E-mail:</span>
+          <input
+            type="text"
+            name="e-mail"
+            placeholder="E-Mail"
+            class="write__place"
+          />
+        </div>
 
-        <div class="place">Temat:</div>
-        <input
-          type="text"
-          name="desrciption"
-          placeholder="Nadaj Temat"
-          class="write__place"
-        />
+        <div class="place">
+          <span>Temat:</span>
+          <input
+            type="text"
+            name="Title"
+            placeholder="Nadaj Temat"
+            class="write__place"
+          />
+        </div>
+        <textarea
+          name="text"
+          id="description"
+          cols="30"
+          rows="10"
+          placeholder="Opis"
+        ></textarea>
         <br />
-        <br />
-        <input type="submit" value="Wyślij" />
-        <input type="reset" value="Resetuj" />
+        <input type="submit" value="Wyślij" class="button" />
+        <input type="reset" value="Resetuj" class="button" />
         <a href="../index.html" class="back">BACK</a>
       </form>
     </div>

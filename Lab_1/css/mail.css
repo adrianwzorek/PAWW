@@ -5,8 +5,10 @@
 }
 
 form {
-  height: calc(90% - wall);
+  font-size: 30px;
+  height: calc(80%);
   background-color: aqua;
+  box-shadow: 10px 10px 10px black;
 }
 
 .back {
@@ -24,13 +26,15 @@ form {
 
 .place {
   margin: 2px;
+  width: calc(100%);
+  height: calc(8%);
+  font-size: 30px;
 }
 
 .wall {
-  margin: 15%;
-  width: 550px;
-  height: 500px;
-  background-color: pink;
+  margin: 10%;
+  width: 650px;
+  height: 600px;
 }
 
 h1 {
@@ -39,5 +43,28 @@ h1 {
 }
 
 .write__place {
+  display: grid;
+  float: right;
   background-color: blue;
+  width: calc(50%);
+  height: 10px;
+  margin: 0;
+  padding: 0;
+  z-index: 10;
+}
+
+textarea {
+  font-size: 20px;
+  width: calc(75%);
+  height: calc(50%);
+}
+
+.button {
+  margin-top: 5px;
+  width: 150px;
+  height: 80px;
+}
+
+input {
+  margin: 0;
 }
