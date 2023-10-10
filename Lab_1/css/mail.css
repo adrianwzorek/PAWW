@@ -5,7 +5,6 @@
 }
 
 form {
-  font-size: 30px;
   height: calc(80%);
   background-color: aqua;
   box-shadow: 10px 10px 10px black;
@@ -43,28 +42,26 @@ h1 {
 }
 
 .write__place {
-  display: grid;
+  font-size: 30px;
   float: right;
   background-color: blue;
   width: calc(50%);
-  height: 10px;
-  margin: 0;
+  height: 30px;
+  margin: 2px 10px 0 0;
   padding: 0;
   z-index: 10;
 }
 
 textarea {
-  font-size: 20px;
-  width: calc(75%);
-  height: calc(50%);
+  font-size: 30px;
+  width: calc(70%);
+  height: calc(45%);
 }
 
 .button {
   margin-top: 5px;
   width: 150px;
-  height: 80px;
-}
-
-input {
-  margin: 0;
+  height: 50px;
+  font-size: 30px;
+  margin: 0 0 0 10px;
 }
