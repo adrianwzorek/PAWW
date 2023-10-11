@@ -1,0 +1,20 @@
+* {
+  margin: 20px;
+  font-size: 30px;
+}
+
+input {
+  display: inline-block;
+  border-radius: 20%;
+  opacity: calc(75%);
+}
+
+input:hover {
+  opacity: calc(100%);
+  cursor: pointer;
+}
+div {
+  width: 250px;
+  height: 200px;
+  background-color: aqua;
+}
