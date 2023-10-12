@@ -6,28 +6,42 @@
 
 input {
   display: inline-block;
-  border-radius: 20%;
+  border-top-right-radius: 25%;
+  border-top-left-radius: 25%;
+  border-bottom-right-radius: 25%;
+  border-bottom-left-radius: 25%;
   opacity: calc(75%);
 }
 
 input:hover {
   opacity: calc(100%);
   cursor: pointer;
+  box-shadow: 2px 2px 2px black, 2px 2px 2px black, 2px -2px 2px black,
+    -2px 2px 2px black;
 }
+
 div {
   width: 250px;
   height: 200px;
   background-color: aqua;
+  box-shadow: 10px -10px 150px black inset, -5px 5px 10px black;
+  border-radius: calc(100%);
   padding: 10px;
+  display: inline-block;
+}
+
+p {
+  position: relative;
+  /* background-color: red; */
+  text-align: center;
+  font-size: 50px;
+  height: calc(100% - 38%);
+  width: calc(100%);
+  padding-top: calc(30%);
+  margin: 0;
+  border-radius: calc(10%);
 }
 
 #date {
-  background-color: aliceblue;
-  margin: 15px 10px 10px 15px;
-  height: 50px;
-  width: 150px;
-  text-align: center;
-}
-p {
-  background-color: red;
+  /* background-color: aliceblue; */
 }
