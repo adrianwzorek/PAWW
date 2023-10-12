@@ -1,6 +1,7 @@
 * {
   margin: 20px;
   font-size: 30px;
+  position: relative;
 }
 
 input {
@@ -17,4 +18,16 @@ div {
   width: 250px;
   height: 200px;
   background-color: aqua;
+  padding: 10px;
+}
+
+#date {
+  background-color: aliceblue;
+  margin: 15px 10px 10px 15px;
+  height: 50px;
+  width: 150px;
+  text-align: center;
+}
+p {
+  background-color: red;
 }

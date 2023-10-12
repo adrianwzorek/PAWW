@@ -6,9 +6,10 @@
     <title>JavaScript</title>
     <script src="koloruj.js" type="text/JavaScript"></script>
     <script src="timedate.js"></script>
+    <script src="script.js"></script>
     <link rel="stylesheet" href="lab_2.css">
 </head>
-<body onload"">
+<body onload="showTime()">
     <header>Poniżej zrobione zadania</header>
     <form  method="post" name="background">
         <input type="button" value="Żółty" onclick="changeBackground('#FFF000')">
@@ -16,7 +17,10 @@
         <input type="button" value="Zielony" onclick="changeBackground('green')">
         <input type="button" value="Czerowny" onclick="changeBackground('red')">
     </form>
-    <div id="zegarek"></div>
+    <div id="zegarek">
+        <p id="date"></p>
+        <p id="time"></p>
+    </div>
     <div id='data'></div>
 </body>
 </html>
