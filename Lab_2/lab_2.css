@@ -4,6 +4,10 @@
   position: relative;
 }
 
+body {
+  background-color: gray;
+}
+
 input {
   display: inline-block;
   border-top-right-radius: 25%;
@@ -20,28 +24,45 @@ input:hover {
     -2px 2px 2px black;
 }
 
+input:first-of-type:hover {
+  background-color: yellow;
+}
+
+input:nth-of-type(2):hover {
+  background-color: blue;
+}
+
+input:nth-of-type(3):hover {
+  background-color: green;
+}
+
+input:nth-of-type(4):hover {
+  background-color: red;
+}
+
 div {
   width: 250px;
   height: 200px;
-  background-color: aqua;
-  box-shadow: 10px -10px 150px black inset, -5px 5px 10px black;
+  /* background-color: aqua;
+  box-shadow: 30px -30px 150px black inset, 0px 0px 50px black;
   border-radius: calc(100%);
-  padding: 10px;
+  padding: 10px;*/
   display: inline-block;
 }
 
 p {
   position: relative;
-  /* background-color: red; */
+  background-color: aqua;
+  box-shadow: 30px -30px 150px black inset, -30px 30px 50px black;
   text-align: center;
   font-size: 50px;
   height: calc(100% - 38%);
   width: calc(100%);
   padding-top: calc(30%);
   margin: 0;
-  border-radius: calc(10%);
+  border-radius: calc(100%);
 }
 
 #date {
-  /* background-color: aliceblue; */
+  background-color: bisque;
 }
