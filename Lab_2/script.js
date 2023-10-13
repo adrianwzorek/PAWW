@@ -14,3 +14,20 @@ function showTime() {
   document.getElementById("time").innerHTML = hour + ":" + min + ":" + sec;
   setTimeout("showTime()", 1000);
 }
+
+function changeBackground(hexNumber) {
+  let bar = document.getElementById("bar");
+  let item = document.getElementsByTagName("input");
+
+  bar.classList.contains("form_active")
+    ? (document.body.style.backgroundColor = hexNumber)
+    : console.log("Nie zmienam");
+  console.log(bar.classList.contains("form_active"));
+}
+
+function openBar(el) {
+  let bar = document.getElementById("bar");
+  let item = document.getElementsByTagName("input");
+  el.classList.toggle("change");
+  bar.classList.toggle("form_active");
+}

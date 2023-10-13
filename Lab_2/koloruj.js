@@ -29,7 +29,3 @@ function clear(from) {
   from.display.value = 0;
   decimal = 0;
 }
-
-function changeBackground(hexNumber) {
-  document.body.style.backgroundColor = hexNumber;
-}

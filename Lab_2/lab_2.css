@@ -9,11 +9,8 @@ body {
 }
 
 input {
-  display: inline-block;
-  border-top-right-radius: 25%;
-  border-top-left-radius: 25%;
-  border-bottom-right-radius: 25%;
-  border-bottom-left-radius: 25%;
+  display: flex;
+  border-radius: 50% 25%;
   opacity: calc(75%);
 }
 
@@ -24,7 +21,48 @@ input:hover {
     -2px 2px 2px black;
 }
 
-input:first-of-type:hover {
+@keyframes barList_close {
+  0% {
+    opacity: calc(100%);
+    width: calc(20%);
+    height: calc(50%);
+  }
+  100% {
+    opacity: calc(0%);
+    width: calc(0%);
+    height: calc(0%);
+  }
+}
+
+form {
+  width: calc(20%);
+  animation-name: barList_close;
+  animation-duration: 0.5s;
+  animation-fill-mode: both;
+}
+
+form > input:nth-child(n + 1):hover {
+  cursor: default;
+}
+@keyframes barList_open {
+  0% {
+    opacity: calc(0%);
+    width: calc(0%);
+    height: calc(0%);
+  }
+  100% {
+    opacity: calc(100%);
+    width: calc(20%);
+    height: calc(50%);
+  }
+}
+
+.form_active {
+  opacity: calc(100%);
+  animation: barList_open 0.5s ease-in-out;
+}
+
+input:nth-of-type(1):hover {
   background-color: yellow;
 }
 
@@ -43,11 +81,23 @@ input:nth-of-type(4):hover {
 div {
   width: 250px;
   height: 200px;
-  /* background-color: aqua;
-  box-shadow: 30px -30px 150px black inset, 0px 0px 50px black;
-  border-radius: calc(100%);
-  padding: 10px;*/
   display: inline-block;
+  align-items: center;
+}
+
+.timers {
+  position: absolute;
+  left: calc(75%);
+  bottom: calc(15%);
+}
+
+@keyframes animacja {
+  0% {
+    opacity: 0%;
+  }
+  100% {
+    opacity: 100%;
+  }
 }
 
 p {
@@ -61,8 +111,35 @@ p {
   padding-top: calc(30%);
   margin: 0;
   border-radius: calc(100%);
+  animation-name: animacja;
+  animation-duration: 5s;
+  animation-timing-function: ease-in;
 }
 
-#date {
-  background-color: bisque;
+.box1,
+.box2,
+.box3 {
+  position: grid;
+  background-color: black;
+  width: 50px;
+  height: 5px;
+  margin: 2px 0px;
+  transition: 0.4s;
+}
+
+.change .box1 {
+  transform: translate(0, 15px) rotate(-45deg);
+}
+.change .box3 {
+  transform: translate(0, -11px) rotate(45deg);
+}
+.change .box2 {
+  opacity: 0;
+}
+
+.container {
+  display: grid;
+  cursor: pointer;
+  height: 40px;
+  width: 50px;
 }

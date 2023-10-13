@@ -3,27 +3,33 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../node_modules/@flaticon/flaticon-uicons/css/all/all.css">
     <title>JavaScript</title>
-    <script src="koloruj.js" type="text/JavaScript"></script>
-    <script src="timedate.js"></script>
+   <link rel="webside icon" href="./music-alt.png">
     <script src="script.js"></script>
     <link rel="stylesheet" href="lab_2.css">
 </head>
 <body onload="showTime()">
     <header>Poniżej zrobione zadania</header>
-    <form  method="post" name="background">
-        <input type="button" value="openvalue" onclick="">
-        <input type="button" value="Żółty" onclick="changeBackground('#FFF000')">
-        <input type="button" value="Niebieski" onclick="changeBackground('blue')">
-        <input type="button" value="Zielony" onclick="changeBackground('green')">
-        <input type="button" value="Czerowny" onclick="changeBackground('red')">
-        <input type="button" value="backDefault" onclick="changeBackground('grey')">
-    </form>
-    <div id="zegarek">
-        <p id="time"></p>
+    <div class="container" onclick="openBar(this)">
+        <div class="box1"></div>
+        <div class="box2"></div>
+        <div class="box3"></div>
     </div>
-    <div id='data'>
-        <p id="date"></p>
+        <form id="bar" method="post" name="background">
+            <input id='intp1'type="button" value="Żółty" onclick="changeBackground('yellow')">
+            <input id='intp2'type="button" value="Niebieski" onclick="changeBackground('blue')">
+            <input id='intp3'type="button" value="Zielony" onclick="changeBackground('green')">
+            <input id='intp4'type="button" value="Czerowny" onclick="changeBackground('red')">
+            <input id='intp5'type="button" value="backDefault" onclick="changeBackground('grey')">
+        </form>
+    <div class="timers">
+        <div id="zegarek" >
+            <p id="time"></p>
+        </div>
+        <div id='data'>
+            <p id="date"></p>
+        </div>
     </div>
 </body>
 </html>
