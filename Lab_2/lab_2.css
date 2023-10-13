@@ -41,6 +41,10 @@ form {
   animation-fill-mode: both;
 }
 
+.form_active > input:nth-child(n + 1):hover {
+  cursor: pointer;
+}
+
 form > input:nth-child(n + 1):hover {
   cursor: default;
 }
