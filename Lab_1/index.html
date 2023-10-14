@@ -6,6 +6,10 @@
     <meta name="Adrian Wzorek" content="Adrian Wzorek" />
     <title>Moja Strona Internetowa</title>
     <link
+      rel="stylesheet"
+      href="../node_modules/@flaticon/flaticon-uicons/css/all/all.css"
+    />
+    <link
       rel="website icon"
       href="./css/Pictures/harry-potter-zoom-background-ey1wy31b6pclofru.webp"
     />
@@ -17,10 +21,35 @@
       crossorigin="anonymous"
       referrerpolicy="no-referrer"
     />
+    <script src="./js/script.js"></script>
   </head>
-  <body>
+  <body onload="showTime()">
     <div class="main">
-      <h1 style="font-size: calc(350%)">Hogwart</h1>
+      <div id="topInfo">
+        <div id="magic" onclick="changeStyle(this)">
+          <div id="box1" class="box"></div>
+          <div id="box2" class="box"></div>
+          <div id="box3" class="box"></div>
+        </div>
+        <ul id="menu" class="m_nactive">
+          <li id="opt1" class="opt">
+            <i
+              id="clock"
+              class="fi fi-rr-clock fa-xl"
+              onclick="lookAtTime(this)"
+            ></i>
+          </li>
+          <li id="opt2" class="opt">
+            <i
+              class="fi fi-rr-volume-off fa-xl"
+              id="music"
+              onclick="playMusic(this)"
+            ></i>
+          </li>
+        </ul>
+        <h1 id="title">Hogwart</h1>
+        <div id="time"></div>
+      </div>
       <nav>
         <ul>
           <li>

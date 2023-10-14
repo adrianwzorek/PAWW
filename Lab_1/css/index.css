@@ -1,11 +1,14 @@
 * {
-  margin: 0;
-  position: relative;
-  background-image: url(./Pictures/istockphoto-654922866-612x612.jpg);
-  background-size: calc(100%);
   color: #000;
 }
-
+body {
+  margin: 10px;
+  position: relative;
+  /* background-image: linear-gradient(to right, #e6d4b8 0%, #baac97 100%); */
+  color: #000;
+  background-image: url(./Pictures/istockphoto-654922866-612x612.jpg);
+  background-size: cover;
+}
 ul {
   list-style-type: none;
   display: block;
@@ -85,12 +88,12 @@ footer {
   background-color: white;
   text-align: center;
   z-index: 1;
-  margin: 0;
+  margin: 0px -10px;
   padding: 0;
 }
 
 .mail {
-  background-color: #007ed7;
+  background-color: #fc2200;
 }
 
 .mail:hover {
@@ -158,4 +161,144 @@ i:hover {
   width: 10px;
   height: 10px;
   position: absolute;
+}
+
+#topInfo {
+  position: relative;
+  display: inline-block;
+  width: calc(100%);
+  align-items: center;
+  text-align: center;
+}
+
+#time {
+  width: 250px;
+  font-size: 50px;
+  top: 10px;
+  height: 60px;
+  color: #fff;
+  float: right;
+}
+
+@keyframes animation {
+  0% {
+    left: -10%;
+  }
+
+  50% {
+    left: 55%;
+    letter-spacing: 40px;
+  }
+
+  100% {
+    left: 40%;
+    letter-spacing: 0px;
+  }
+}
+
+#title {
+  position: absolute;
+  z-index: 1;
+  left: 40%;
+  font-size: 60px;
+  margin: 0;
+  bottom: 0;
+  animation-name: animation;
+  animation-duration: 2s;
+}
+
+#magic {
+  width: 60px;
+  height: 60px;
+  float: left;
+}
+
+#magic:hover {
+  cursor: pointer;
+}
+
+.magic_active #box1 {
+  transform: translate(0, 15px) rotate(45deg);
+}
+
+.magic_active #box2 {
+  opacity: 0;
+}
+
+.magic_active #box3 {
+  transform: translate(0, -15px) rotate(-45deg);
+}
+
+.box {
+  width: 60px;
+  background-color: #000;
+  z-index: 1;
+  height: 5px;
+  margin: 10px 0px;
+  border-radius: 10%;
+  transition: 0.4s;
+}
+
+#menu > li:hover {
+  background-image: none;
+}
+#menu > li {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  margin: 10px;
+}
+
+#menu > li:nth-child(1) {
+  left: 10%;
+  margin: 0.5% 5% 0 0;
+}
+
+#menu > li:nth-child(2) {
+  left: 20%;
+  margin: 0.5% 5% 0 0;
+}
+
+#menu > li > i {
+  margin: -18px -15px;
+  z-index: 1;
+}
+
+.opt:hover {
+  background-image: none;
+}
+
+@keyframes animation2 {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 100;
+  }
+}
+
+@keyframes animation3 {
+  0% {
+    opacity: 100;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+.m_nactive {
+  opacity: 0;
+  animation-name: animation3;
+  animation-duration: 0.5s;
+}
+.m_nactive > li > i:hover {
+  cursor: default;
+}
+.m_active {
+  opacity: 100;
+  animation-name: animation2;
+  animation-duration: 0.5s;
+}
+.m_active > li > i:hover {
+  cursor: pointer;
 }
