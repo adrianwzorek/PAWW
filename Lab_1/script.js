@@ -1,6 +1,6 @@
 let music = new Audio("./music/Prologue.mp3");
 
-export function showTime() {
+function showTime() {
   let date = new Date();
   let hour = date.getHours();
   let min = date.getMinutes();
@@ -16,13 +16,13 @@ export function showTime() {
   setTimeout("showTime()", 1000);
 }
 
-export function changeStyle(el) {
+function changeStyle(el) {
   el.classList.toggle("magic_active");
   let menu = document.getElementById("menu");
   menu.classList.toggle("m_active");
 }
 
-export function lookAtTime(el) {
+function lookAtTime(el) {
   let time = document.getElementById("time");
   if (document.getElementById("menu").classList.contains("m_active")) {
     el.classList.toggle("active");
@@ -32,7 +32,7 @@ export function lookAtTime(el) {
   }
 }
 
-export function playMusic(el) {
+function playMusic(el) {
   let item = document.getElementById("music");
   item.classList.toggle("active");
   if (document.getElementById("menu").classList.contains("m_active")) {
