@@ -4,6 +4,7 @@
   background-color: rgb(138, 246, 148);
   background-size: calc(100%);
   color: #000;
+  overflow-x: hidden;
 }
 .main_g {
   margin: 2px;

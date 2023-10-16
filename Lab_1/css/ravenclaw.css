@@ -3,6 +3,7 @@
   position: relative;
   background-color: rgb(97, 162, 180);
   color: #000;
+  overflow-x: hidden;
 }
 .main_g {
   margin: 2px;
@@ -49,7 +50,6 @@ th {
   font-size: calc(130%);
   vertical-align: top;
   text-shadow: 1px 0 0 #000, 0 -1px 0 #000, 0 1px 0 #000, -1px 0 0 #000;
-
 }
 
 .hero {
