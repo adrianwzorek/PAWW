@@ -1,11 +1,12 @@
 * {
   margin: 5px;
+  font-size: 50px;
   position: relative;
   background-color: #9fa9a3;
 }
 
 header {
-  font-size: 50px;
+  font-size: 75px;
   text-align: center;
 }
 
@@ -20,11 +21,13 @@ li {
 }
 
 a {
-  box-shadow: 2px 2px 2px black, 2px 2px 2px black, 2px -2px 2px black,
-    -2px 2px 2px black;
-  font-size: 35px;
+  box-shadow: -15px 15px 20px black, 5px -5px 30px white, 10px 10px 20px grey,
+    -10px -5px 30px black;
+  border-radius: 20%;
+  border: 2px solid #c5d5c5;
   text-decoration: none;
   color: black;
   background-color: #c5d5c5;
-  margin: 10px;
+  left: calc(35%);
+  right: calc(50%);
 }
