@@ -1,4 +1,4 @@
-@import "../../node_modules/@flaticon/flaticon-uicons/css/";
+@import "../../node_modules/@flaticon/flaticon-uicons/css/all/all.rounded.css";
 
 * {
   color: #000;
@@ -6,7 +6,6 @@
 body {
   margin: 10px;
   position: relative;
-  /* background-image: linear-gradient(to right, #e6d4b8 0%, #baac97 100%); */
   color: #000;
   background-image: url(./Pictures/istockphoto-654922866-612x612.jpg);
   background-size: cover;
