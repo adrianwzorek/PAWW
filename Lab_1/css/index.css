@@ -1,5 +1,3 @@
-@import "../../node_modules/@flaticon/flaticon-uicons/css/all/all.rounded.css";
-
 * {
   color: #000;
 }
@@ -85,12 +83,22 @@ span {
 footer {
   position: fixed;
   bottom: 0;
+  font-size: 20px;
   width: 100%;
   background-color: white;
   text-align: center;
   z-index: 1;
   margin: 0px -10px;
   padding: 0;
+}
+footer > img {
+  float: right;
+  width: 25px;
+  margin: 0 1%;
+}
+
+footer > img:hover {
+  cursor: pointer;
 }
 
 .mail {
@@ -142,7 +150,7 @@ footer {
   font-size: 30px;
   font-family: cursive;
   color: #211e3f;
-  margin-bottom: 20px;
+  margin-bottom: 50px;
 }
 
 h1 {
@@ -245,9 +253,23 @@ i:hover {
 }
 #menu > li {
   position: absolute;
-  width: 10px;
-  height: 10px;
-  margin: 10px;
+  margin: 0;
+  width: 20px;
+  height: 20px;
+}
+
+#menu > li > img {
+  position: absolute;
+  z-index: 1;
+  width: 50px;
+  height: 50px;
+  top: 0;
+  left: 0;
+  /* background-color: #211e3f; */
+  opacity: 100%;
+}
+.m_nactive > li > img:hover {
+  cursor: default;
 }
 
 #menu > li:nth-child(1) {
@@ -260,13 +282,9 @@ i:hover {
   margin: 0.5% 5% 0 0;
 }
 
-#menu > li > i {
-  margin: -18px -15px;
-  z-index: 1;
-}
-
-.opt:hover {
-  background-image: none;
+.m_active > li > img:hover {
+  cursor: pointer;
+  opacity: 50%;
 }
 
 @keyframes animation2 {
@@ -301,5 +319,21 @@ i:hover {
   animation-duration: 0.5s;
 }
 .m_active > li > i:hover {
+  cursor: pointer;
+}
+
+#info_table {
+  position: absolute;
+  top: 30%;
+  left: 10%;
+  width: 75%;
+  height: 50%;
+  color: black;
+  font-size: 40px;
+  text-align: justify;
+  opacity: 0;
+  z-index: 1;
+}
+#info_table > a:hover {
   cursor: pointer;
 }

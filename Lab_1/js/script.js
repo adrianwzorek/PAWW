@@ -38,10 +38,24 @@ function playMusic(el) {
   if (document.getElementById("menu").classList.contains("m_active")) {
     if (item.classList.contains("active")) {
       music.play();
-      item.classList.replace("fi-rr-volume-off", "fi-rr-volume");
+      item.src = "./css/Pictures/Icons/volume.png";
     } else {
       music.pause();
-      item.classList.replace("fi-rr-volume", "fi-rr-volume-off");
+      item.src = "./css/Pictures/Icons/volume-off.png";
     }
+  }
+}
+
+function showInfo(el) {
+  let item = document.getElementById("info");
+  let dock = document.getElementById("main");
+  let info = document.getElementById("info_table");
+  item.classList.toggle("active");
+  if (item.classList.contains("active")) {
+    dock.style.opacity = 0;
+    info.style.opacity = 100;
+  } else {
+    dock.style.opacity = 100;
+    info.style.opacity = 0;
   }
 }
