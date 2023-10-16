@@ -54,8 +54,10 @@ function showInfo(el) {
   if (item.classList.contains("active")) {
     dock.style.opacity = 0;
     info.style.opacity = 100;
+    info.style.zIndex = 1;
   } else {
     dock.style.opacity = 100;
     info.style.opacity = 0;
+    info.style.zIndex = 0;
   }
 }
