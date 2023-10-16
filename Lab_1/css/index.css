@@ -7,6 +7,7 @@ body {
   color: #000;
   background-image: url(./Pictures/istockphoto-654922866-612x612.jpg);
   background-size: cover;
+  overflow-x: hidden;
 }
 ul {
   list-style-type: none;
@@ -151,6 +152,7 @@ footer > img:hover {
   font-family: cursive;
   color: #211e3f;
   margin-bottom: 50px;
+  animation: animation2 3s;
 }
 
 h1 {
@@ -284,7 +286,6 @@ i:hover {
 
 .m_active > li > img:hover {
   cursor: pointer;
-  opacity: 50%;
 }
 
 @keyframes animation2 {
@@ -310,16 +311,11 @@ i:hover {
   animation-name: animation3;
   animation-duration: 0.5s;
 }
-.m_nactive > li > i:hover {
-  cursor: default;
-}
+
 .m_active {
   opacity: 100;
   animation-name: animation2;
   animation-duration: 0.5s;
-}
-.m_active > li > i:hover {
-  cursor: pointer;
 }
 
 #info_table {
@@ -333,6 +329,6 @@ i:hover {
   text-align: justify;
   opacity: 0;
 }
-#info_table > a:hover {
-  cursor: pointer;
+.nactive_link {
+  pointer-events: none;
 }

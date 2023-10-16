@@ -26,9 +26,15 @@ function lookAtTime(el) {
   let time = document.getElementById("time");
   if (document.getElementById("menu").classList.contains("m_active")) {
     el.classList.toggle("active");
-    el.classList.contains("active")
-      ? (time.style.opacity = 100)
-      : (time.style.opacity = 0);
+    if (el.classList.contains("active")) {
+      time.classList.remove("m_nactive");
+      time.classList.add("m_active");
+      time.style.opacity = 100;
+    } else {
+      time.classList.remove("m_active");
+      time.classList.add("m_nactive");
+      time.style.opacity = 0;
+    }
   }
 }
 
@@ -52,12 +58,20 @@ function showInfo(el) {
   let info = document.getElementById("info_table");
   item.classList.toggle("active");
   if (item.classList.contains("active")) {
-    dock.style.opacity = 0;
-    info.style.opacity = 100;
     info.style.zIndex = 1;
+    info.style.opacity = 100;
+    info.classList.replace("m_nactive", "m_active");
+    info.classList.remove("nactive_link");
+    dock.style.zIndex = 0;
+    dock.style.opacity = 0;
+    dock.classList.replace("m_active", "m_nactive");
   } else {
-    dock.style.opacity = 100;
-    info.style.opacity = 0;
+    info.classList.replace("m_active", "m_nactive");
     info.style.zIndex = 0;
+    info.style.opacity = 0;
+    info.classList.add("nactive_link");
+    dock.style.zIndex = 1;
+    dock.style.opacity = 100;
+    dock.classList.replace("m_nactive", "m_active");
   }
 }
