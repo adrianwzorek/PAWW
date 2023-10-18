@@ -13,12 +13,19 @@
     <script src="../node_modules/jquery/dist/jquery.min.js"></script>
     <title>Lab_3</title>
   </head>
-  <body>
-    <h1>Hello world!</h1>
-    <div id="one">
-      Hello
-
-      <div class="incognito">Hey :D</div>
+  <body onload="gradient_on()">
+    <div id="container">
+      <h1><span>Hello world!</span></h1>
+      <div id="place">
+        <button type="button" id="btn1" onclick="animation_back()">
+          To left
+        </button>
+        <button type="button" id="btn2" onclick="animation()">To right</button>
+      </div>
+      <div id="one">
+        Hello
+        <div class="incognito">Hey :D</div>
+      </div>
     </div>
     <script src="./script.js"></script>
   </body>

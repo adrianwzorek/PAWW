@@ -1,6 +1,7 @@
+$(".incognito").hide();
+
 const magic = () => {
   $(".incognito").show(500);
-
   $("#one").animate(
     {
       "font-size": 50,
@@ -27,4 +28,35 @@ $("#one").on({
   mouseenter: magic,
   mouseleave: magic_back,
 });
-// Tworzenie elementu
+
+const gradient_on = () => {
+  $("h1").css({
+    background:
+      "linear-gradient(90deg, rgba(23,172,203,1) 4%, rgba(6,97,125,1) 90%)",
+  });
+};
+
+let move = true;
+
+const animation = () => {
+  $("span").animate(
+    {
+      padding: "0 58%",
+      fontSize: 50,
+    },
+    1000
+  );
+
+  console.log("a 1");
+};
+
+const animation_back = () => {
+  $("span").animate(
+    {
+      padding: 0,
+      fontSize: 35,
+    },
+    1000
+  );
+  console.log("a 2");
+};
