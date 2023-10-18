@@ -4,6 +4,7 @@ body {
   position: relative;
   display: grid;
   padding: 10px;
+  overflow-x: hidden;
 }
 
 #one {

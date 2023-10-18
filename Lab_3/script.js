@@ -41,7 +41,7 @@ let move = true;
 const animation = () => {
   $("span").animate(
     {
-      padding: "0 58%",
+      padding: "0 55%",
       fontSize: 50,
     },
     1000
