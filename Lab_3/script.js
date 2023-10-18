@@ -1,19 +1,30 @@
-$("#one").on({
-  mouseenter: () => {
-    $("#one").animate({
+const magic = () => {
+  $(".incognito").show(500);
+
+  $("#one").animate(
+    {
       "font-size": 50,
       width: 350,
       height: 350,
-    });
-  },
-  mouseleave: () => {
-    $("#one").animate({
+    },
+    500
+  );
+};
+
+const magic_back = () => {
+  $(".incognito").hide(500);
+  $("#one").animate(
+    {
       "font-size": 30,
       width: 150,
       height: 150,
-    });
-  },
-});
+    },
+    500
+  );
+};
 
+$("#one").on({
+  mouseenter: magic,
+  mouseleave: magic_back,
+});
 // Tworzenie elementu
-const element = `<div class="incognito">Hey :D</div>`;
