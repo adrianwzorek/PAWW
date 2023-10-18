@@ -11,13 +11,20 @@ header {
 }
 
 ul {
+  position: relative;
   list-style-type: none;
   margin: 10px;
-  display: flex;
+  display: block;
 }
 
 li {
+  position: absolute;
   height: 50px;
+  padding: 25px;
+  left: 0;
+}
+li:nth-child(2) {
+  top: 15vh;
 }
 
 a {

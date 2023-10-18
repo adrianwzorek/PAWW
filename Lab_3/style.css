@@ -1,0 +1,21 @@
+body {
+  background-color: cadetblue;
+  margin: 30px;
+  border: 2px solid red;
+  position: relative;
+  display: grid;
+  padding: 10px;
+  justify-items: center;
+}
+
+#one {
+  width: 150px;
+  height: 150px;
+  border: 2px solid white;
+  text-align: center;
+  font-size: 20px;
+}
+
+.incognito {
+  border: 2px solid green;
+}
