@@ -13,7 +13,8 @@ body {
   text-align: center;
   font-size: 20px;
   float: left;
-  box-shadow: 10px 10px black;
+  box-shadow: 10px 10px black, 30px 30px 30px black, 50px 50px 80px black;
+  border-radius: 5%;
 }
 
 button {
@@ -22,6 +23,7 @@ button {
   font-size: 20px;
   grid-row: 1;
   box-shadow: 10px 10px black;
+  border: 3px solid black;
 }
 
 #place {
