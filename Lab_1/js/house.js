@@ -4,7 +4,7 @@ $("#info").hide();
 $("#hero").hide();
 $("th").hide();
 const showTitle = () => {
-  $("#people").fadeToggle(3000);
+  $("#people").fadeIn(3000);
   $("#name").fadeIn(2000);
   $("#info").fadeIn(2000);
   $("#hero").fadeToggle(2000);

@@ -1,29 +1,33 @@
 * {
-  margin: 0;
+  color: #fcfbfb;
+}
+body {
+  margin: 10px;
   position: relative;
-  background-color: rgb(97, 162, 180);
-  color: #000;
+  background-color: rgb(229, 78, 44);
   overflow-x: hidden;
+  background-image: url("./Pictures/Raven/vintage-ravenclaw-crest-61x5bau4ewpp4kcm.webp");
+  background-size: calc(150%);
+  padding: 20px;
+  opacity: 100%;
 }
-.main_g {
-  margin: 2px;
-}
+
 footer {
   position: fixed;
   bottom: 0;
-  width: 100%;
+  width: 110%;
+  color: #000;
   background-color: white;
   text-align: center;
   z-index: 1;
-  margin: 0;
-  padding: 0;
+  margin: 0 -10%;
 }
 
 .mail:hover {
   cursor: pointer;
 }
 
-.back {
+#back {
   width: calc(20%);
   height: 200px;
   font-size: 30px;
@@ -32,27 +36,26 @@ footer {
 
 h1 {
   text-align: center;
+  font-size: 8vh;
 }
 
 table {
-  background-color: blue;
   width: calc(100%);
-  height: 550px;
+  height: 500px;
   color: wheat;
-  margin: 50px 50px 0px 0px;
-}
-
-th {
-  background-image: url(./Pictures/Raven/vintage-ravenclaw-crest-61x5bau4ewpp4kcm.webp);
-  background-size: cover;
-  background-position: calc(50%);
-  color: rgb(255, 255, 255);
-  font-size: calc(130%);
-  vertical-align: top;
+  position: relative;
+  padding: 10px;
+  font-size: calc(110%);
   text-shadow: 1px 0 0 #000, 0 -1px 0 #000, 0 1px 0 #000, -1px 0 0 #000;
 }
+tr {
+  vertical-align: top;
+}
+th {
+  color: rgb(255, 255, 255);
+}
 
-.hero {
+#hero {
   width: calc(20%);
   height: 450px;
   background-image: url(./Pictures/Raven/RowenaRavenclawPottermore.webp);
@@ -60,16 +63,16 @@ th {
   background-position: calc(50%);
   border-radius: 50%;
   float: right;
+  margin-bottom: 20px;
 }
 
-.hero:hover {
+#hero:hover {
   background-image: url(./Pictures/Raven/hogwarts-legacy-houses-3.jpg);
   background-size: cover;
   height: 400px;
   width: calc(30%);
   background-position: calc(50%);
 }
-
 th > img {
   border-radius: 100%;
   width: calc(20%);
@@ -86,37 +89,36 @@ th > img:hover {
   z-index: 1;
 }
 
+#people {
+  font-size: 50px;
+  color: rgb(244, 66, 66);
+  text-shadow: 1px 0 0 #000, 0 -1px 0 #000, 0 1px 0 #000, -1px 0 0 #000;
+}
+
+#people:hover {
+  cursor: pointer;
+  opacity: calc(50%);
+}
 .__info {
   font-size: calc(250%);
   margin: 50px;
   padding: 50px;
 }
 
-#people {
-  float: calc(50);
-  font-size: 50px;
-  left: calc(40%);
-  border: 15px double black;
-  color: rgb(85, 131, 245);
-  text-shadow: 1px 0 0 #000, 0 -1px 0 #000, 0 1px 0 #000, -1px 0 0 #000;
-}
-
-footer {
-  position: fixed;
-  bottom: 0;
+#herb {
+  font-size: 10vh;
   width: 100%;
-  background-color: white;
-  text-align: center;
-  z-index: 1;
-  margin: 0;
-  padding: 0;
 }
 
-.herb:hover {
+#herb:hover {
   cursor: pointer;
-  opacity: calc(50%);
+  opacity: 50%;
 }
 
 .title {
   font-size: 30px;
+}
+
+#info {
+  display: block;
 }

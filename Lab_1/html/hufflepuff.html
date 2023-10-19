@@ -10,22 +10,30 @@
     />
     <title>Hufflepuff</title>
     <link rel="stylesheet" type="text/css" href="../css/hufflepuff.css" />
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
+      integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
   </head>
   <body>
     <div class="main_g">
-      <a href="../index.html" class="back">Back</a>
-      <span class="title"><h1>Założyciel - Helga Hufflepuff</h1></span>
+      <a href="../index.html" id="back">Back</a>
+      <span id="name"><h1>Założyciel - Helga Hufflepuff</h1></span>
       <div class="__info">
-        <div class="hero"></div>
-        <span class="herb"><b>Hufflepuff</b></span
-        >— jeden z czterech domów w Szkole Magii i Czarodziejstwa w Hogwarcie.
-        Jego założycielką była Helga Hufflepuff. Duchem opiekującym się domem
-        był Gruby Mnich. Mieszkańców domu nazywano w gwarze uczniowskiej
-        Puchonami. Uważa się, że jego uczniowie byli niezdarami, nie jest to
-        jednak prawda. Wychowankowie Hufflepuffu byli uczciwi, spokojni,
-        lojalni, sprawiedliwi, a przede wszystkim pracowici.
+        <div id="hero"></div>
+        <span id="herb" onclick="showTitle()"><b>Hufflepuff</b></span>
+        <div id="info">
+          Jeden z czterech domów w Szkole Magii i Czarodziejstwa w Hogwarcie.
+          Jego założycielką była Helga Hufflepuff. Duchem opiekującym się domem
+          był Gruby Mnich. Mieszkańców domu nazywano w gwarze uczniowskiej
+          Puchonami. Uważa się, że jego uczniowie byli niezdarami, nie jest to
+          jednak prawda. Wychowankowie Hufflepuffu byli uczciwi, spokojni,
+          lojalni, sprawiedliwi, a przede wszystkim pracowici.
+        </div>
       </div>
-      <span id="people">Uczniowie</span>
+      <span id="people" onclick="showStudent()">Uczniowie</span>
       <table>
         <tr>
           <th>
@@ -121,12 +129,11 @@
           </th>
         </tr>
       </table>
-
-      <footer>
-        Nacisnij
-        <a href="./mail.html" class="mail">&#10170;</a> żeby wysłać do mnie
-        maila
-      </footer>
     </div>
+    <footer>
+      Nacisnij
+      <a href="./mail.html" class="mail">&#10170;</a> żeby wysłać do mnie maila
+    </footer>
+    <script src="../js/house.js"></script>
   </body>
 </html>

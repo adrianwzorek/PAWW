@@ -11,21 +11,29 @@
     />
     <title>Ravenclaw</title>
     <link rel="stylesheet" type="text/css" href="../css/ravenclaw.css" />
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
+      integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
   </head>
   <body>
     <div class="main_g">
-      <a href="../index.html" class="back">Back</a>
-      <span class="title"><h1>Założyciel - Rowena Ravenclaw</h1></span>
+      <a href="../index.html" id="back">Back</a>
+      <span id="name"><h1>Założyciel - Rowena Ravenclaw</h1></span>
       <div class="__info">
-        <div class="hero"></div>
-        <span class="herb"><b>Ravenclaw</b></span
-        >— jeden z czterech domów w Szkole Magii i Czarodziejstwa w Hogwarcie,
-        założony przez Rowenę Ravenclaw. Członkowie tego domu w gwarze
-        uczniowskiej nazywani byli Krukonami, charakteryzowali się mądrością,
-        inteligencją i bystrością. Barwami Ravenclawu były niebieski i brązowy,
-        a jego symbolem — orzeł.
+        <div id="hero"></div>
+        <span id="herb" onclick="showTitle()"><b>Ravenclaw</b></span>
+        <div id="info">
+          Jeden z czterech domów w Szkole Magii i Czarodziejstwa w Hogwarcie,
+          założony przez Rowenę Ravenclaw. Członkowie tego domu w gwarze
+          uczniowskiej nazywani byli Krukonami, charakteryzowali się mądrością,
+          inteligencją i bystrością. Barwami Ravenclawu były niebieski i
+          brązowy, a jego symbolem — orzeł.
+        </div>
       </div>
-      <span id="people">Uczniowie</span>
+      <span id="people" onclick="showStudent()">Uczniowie</span>
       <table>
         <tr>
           <th>
@@ -76,12 +84,11 @@
           </th>
         </tr>
       </table>
-
-      <footer>
-        Nacisnij
-        <a href="./mail.html" class="mail">&#10170;</a> żeby wysłać do mnie
-        maila
-      </footer>
     </div>
+    <footer>
+      Nacisnij
+      <a href="./mail.html" class="mail">&#10170;</a> żeby wysłać do mnie maila
+    </footer>
+    <script src="../js/house.js"></script>
   </body>
 </html>

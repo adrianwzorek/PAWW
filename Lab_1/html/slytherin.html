@@ -10,21 +10,30 @@
     />
     <title>Slytherin</title>
     <link rel="stylesheet" type="text/css" href="../css/slytherin.css" />
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
+      integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
   </head>
   <body>
     <div class="main_g">
-      <a href="../index.html" class="back">Back</a>
-      <span class="title"><h1>Założyciel - Salazar Slytherin</h1></span>
+      <a href="../index.html" id="back">Back</a>
+      <span id="name"><h1>Założyciel - Salazar Slytherin</h1></span>
       <div class="__info">
-        <div class="hero"></div>
-        <span class="herb"><b>Slytherin</b></span> — jeden z czterech domów w
-        Szkole Magii i Czarodziejstwa w Hogwarcie, założony przez Salazara
-        Slytherina. Zakładając dom, Salazar rozkazał Tiarze Przydziału, aby
-        wybierała uczniów, którzy posiadali kilka szczególnych cech, które
-        najbardziej cenił. Te cechy to: przebiegłość, zaradność, przywództwo i
-        ambicja. Właśnie z tego domu pochodziła większość śmierciożerców.
+        <div id="hero"></div>
+        <span id="herb" onclick="showTitle()">Slytherin</span>
+        <div id="info">
+          Jeden z czterech domów w Szkole Magii i Czarodziejstwa w Hogwarcie,
+          założony przez Salazara Slytherina. Zakładając dom, Salazar rozkazał
+          Tiarze Przydziału, aby wybierała uczniów, którzy posiadali kilka
+          szczególnych cech, które najbardziej cenił. Te cechy to: przebiegłość,
+          zaradność, przywództwo i ambicja. Właśnie z tego domu pochodziła
+          większość śmierciożerców.
+        </div>
       </div>
-      <span id="people">Uczniowie</span>
+      <span id="people" onclick="showStudent()">Uczniowie</span>
       <table>
         <tr>
           <th>
@@ -193,23 +202,22 @@
               alt="Albus Severus Potter"
             />
             Albus Severus "Al" Potter (ur. między 1 września 2005 roku a 31
-            sierpnia 2006 r.) — czarodziej półkrwi[1]; drugie dziecko i
-            najmłodszy syn Harry'ego Pottera i jego żony, Ginny Potter (zd.
-            Weasley). Albus miał dwójkę rodzeństwa - starszego brata, Jamesa
-            Syriusza, a także młodszą siostrę, Lily Lunę. W 2017 roku Albus
-            rozpoczął naukę w Szkole Magii i Czarodziejstwa w Hogwarcie wraz z
-            Rose Granger-Weasley i Scorpiusem Malfoyem, gdzie, ku wielkiemu
-            zdziwieniu, został przydzielony do Slytherinu[2]. Tam Albus szybko
+            sierpnia 2006 r.) — czarodziej półkrwi; drugie dziecko i najmłodszy
+            syn Harry'ego Pottera i jego żony, Ginny Potter (zd. Weasley). Albus
+            miał dwójkę rodzeństwa - starszego brata, Jamesa Syriusza, a także
+            młodszą siostrę, Lily Lunę. W 2017 roku Albus rozpoczął naukę w
+            Szkole Magii i Czarodziejstwa w Hogwarcie wraz z Rose
+            Granger-Weasley i Scorpiusem Malfoyem, gdzie, ku wielkiemu
+            zdziwieniu, został przydzielony do Slytherinu. Tam Albus szybko
             zaprzyjaźnił się ze Scorpiusem, synem Dracona Malfoya.
           </th>
         </tr>
       </table>
-
-      <footer>
-        Nacisnij
-        <a href="./mail.html" class="mail">&#10170;</a> żeby wysłać do mnie
-        maila
-      </footer>
     </div>
+    <footer>
+      Nacisnij
+      <a href="./mail.html" class="mail">&#10170;</a> żeby wysłać do mnie maila
+    </footer>
+    <script src="../js/house.js"></script>
   </body>
 </html>
