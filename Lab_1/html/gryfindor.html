@@ -10,23 +10,33 @@
     />
     <title>Gryfindor</title>
     <link rel="stylesheet" type="text/css" href="../css/gryfindor.css" />
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
+      integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
   </head>
   <body>
     <div class="main_g">
-      <a href="../index.html" class="back">Back</a>
-      <span class="title"><h1>Założyciel - Godryk Gryffindor</h1></span>
+      <a href="../index.html" id="back">Back</a>
+      <span class="title"
+        ><h1 id="name">Założyciel - Godryk Gryffindor</h1></span
+      >
       <div class="__info">
-        <div class="hero"></div>
-        <span class="herb"><b>Gryffindor</b></span
-        >— jeden z czterech domów w Szkole Magii i Czarodziejstwa w Hogwarcie.
-        Jego nazwa pochodzi od nazwiska Godryka Gryffindora, jednego z czworga
-        legendarnych założycieli szkoły. Mieszkańców tego domu nazywano w gwarze
-        uczniowskiej Gryfonami.
+        <div id="hero"></div>
+        <span id="herb" onclick="showTitle()"><b>Gryffindor</b></span>
+        <div id="info">
+          Jeden z czterech domów w Szkole Magii i Czarodziejstwa w Hogwarcie.
+          Jego nazwa pochodzi od nazwiska Godryka Gryffindora, jednego z czworga
+          legendarnych założycieli szkoły. Mieszkańców tego domu nazywano w
+          gwarze uczniowskiej Gryfonami.
+        </div>
       </div>
-      <span id="people">Uczniowie</span>
-      <table>
+      <span id="people" onclick="showStudent()">Uczniowie</span>
+      <table onmouseenter="lookAt(id)">
         <tr>
-          <th>
+          <th id="first">
             <h1>Harry Potter</h1>
             <br />
             <img
@@ -51,7 +61,7 @@
             znał Harry'ego jako „Chłopca, który przeżył”, czyli jedyną osobę,
             która do tej pory przeżyła mordercze zaklęcie.
           </th>
-          <th>
+          <th id="second">
             <h1>Hermiona Granger</h1>
             <br />
             <img
@@ -70,7 +80,7 @@
             Kontroli Nad Magicznymi Stworzeniami. Ostatecznie została Ministrem
             Magii.
           </th>
-          <th>
+          <th id="third">
             <h1>Ron Weasley</h1>
             <img
               src="../css/Pictures/Gryf/Ron-Weasley-harry-potter-and-the-deathly-hallows-movies-17179892-1919-2560.webp"
@@ -105,7 +115,7 @@
           </th>
         </tr>
         <tr>
-          <th>
+          <th id="forth">
             <h1>Albus Dumbledore</h1>
             <br />
             <img
@@ -143,7 +153,7 @@
             dyrektora. Na Wieży Astronomicznej 30 czerwca 1997 roku Snape zabił
             Albusa Dumbledore'a na zakończenie bitwy na Wieży Astronomicznej.
           </th>
-          <th>
+          <th id="fifth">
             <h1>Syriusz Black III</h1>
             <br />
             <img
@@ -183,7 +193,7 @@
             Kamieniowi Wskrzeszenia, kiedy Harry chciał oddać się w ręce
             Voldemorta.
           </th>
-          <th>
+          <th id="seventh">
             <h1>Minerwa McGonagall</h1>
             <br />
             <img
@@ -199,12 +209,11 @@
           </th>
         </tr>
       </table>
-
-      <footer>
-        Nacisnij
-        <a href="./mail.html" class="mail">&#10170;</a> żeby wysłać do mnie
-        maila
-      </footer>
     </div>
+    <div id="footer">
+      Naciśnij <a href="./mail.html" class="mail">&#10170;</a> żeby wysłać do
+      mnie maila
+    </div>
+    <script src="../js/house.js"></script>
   </body>
 </html>
