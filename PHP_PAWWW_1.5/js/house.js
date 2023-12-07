@@ -1,4 +1,4 @@
-function hideAll() {
+function hiseAll() {
   $("#name").hide();
   $("#people").hide();
   $("#info").hide();
