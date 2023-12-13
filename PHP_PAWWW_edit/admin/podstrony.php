@@ -26,14 +26,17 @@ function ListaPodstron($conn)
     $result = mysqli_query($conn, $query);
     $calc = 1;
     while ($row = mysqli_fetch_array($result)) {
-        echo '<div class="item nr' . $calc . '"> ' . $row['id'] . '  -->  ' . $row['page_title'] . '<form action="podstrony.php" method="get">
-    ' . $pom = $row['id'] . '
-    <input type="submit" name="edytuj" value="Edytuj">
-    </form></div>';
-        $calc += 1;
+        $list = ['' . $row['id'] . ''];
+    }
+    for(i=0;i<sizeof($list);i++){
+        echo $list[i];
     }
 }
 
+// echo '<div class="item nr' . $calc . '"> ' . $row['id'] . '  -->  ' . $row['page_title'] . '
+// <form action="podstrony.php" method="get">
+// <input type="submit" name="edytuj" value="Edytuj">
+// </form></div>';
 
 
 function EdytujPodstrone()
