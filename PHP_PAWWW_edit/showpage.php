@@ -12,7 +12,7 @@ function showTab($id, $conn)
         echo 'nie znaleziono </br>';
     } else {
         echo $row['id'];
-        $web = $row['page_content'];
+        $web = html_entity_decode($row['page_content'], ENT_HTML5 | ENT_QUOTES | ENT_SUBSTITUTE);
     }
     return $web;
 }
