@@ -5,10 +5,6 @@ include '../showpage.php';
 
 <div class='lista_postron'>
     <?php
-
-    //echo print_r($_GET);
-    //echo print_r($_POST);
-
     if (isset($_POST) && isset($_POST['tresc'])) {
         $tresc = htmlspecialchars($_POST['tresc']);
         if (isset($_POST['page_id'])) {
@@ -18,13 +14,12 @@ include '../showpage.php';
         }
         mysqli_query($conn, $query);
         if (isset($_POST['page_id'])) {
-            echo 'zaktualizowano stronę ' . $_POST['page_id'];
+            echo '<div class="info">zaktualizowano stronę ' . $_POST['page_id'] . '</div>';
         } else {
-            echo 'dodano stronę';
+            echo '<div class="info">dodano stronę</div>';
         }
-    }
-
-    if (isset($_GET['usun'])) {
+    } elseif (isset($_GET['usun'])) {
+        echo '<div class="info">Usunięto stronę o id=' . $_GET['page_id'] . '</div>';
         $query = 'DELETE FROM page_list WHERE id = "' . $_GET['page_id'] . '" LIMIT 1';
         mysqli_query($conn, $query);
     }
@@ -34,14 +29,14 @@ include '../showpage.php';
     } elseif (isset($_GET['edytuj'])) {
         EdytujPodstrone($conn);
     }
-    echo
-    '<form action="podstrony.php" method="get">
-    <input type="submit" name="dodaj" value="dodaj">
-    </form>';
+    echo '<form action="podstrony.php" method="get">
+                <input type="submit" name="dodaj" value="dodaj">
+                </form>';
     ?>
 </div>
 
 <?php
+
 
 function ListaPodstron($conn)
 {
@@ -60,11 +55,6 @@ function ListaPodstron($conn)
     }
 }
 
-// echo '<div> ' . $row['id'] . '-->' . $row['page_title'] . '</div>';
-
-
-
-
 
 function EdytujPodstrone($conn)
 {
@@ -82,7 +72,7 @@ function EdytujPodstrone($conn)
     <div class="box">
         Podaj treść strony
         <textarea name="tresc" placeholder="tresc strony">
-' . html_entity_decode($row['page_content'], ENT_HTML5 | ENT_QUOTES | ENT_SUBSTITUTE) . '
+    ' . html_entity_decode($row['page_content'], ENT_HTML5 | ENT_QUOTES | ENT_SUBSTITUTE) . '
         </textarea>
     </div>
     <div class="box">
@@ -98,13 +88,12 @@ function DodajPodstrone($conn)
 {
     $query = "SELECT * FROM page_list";
     $result = mysqli_query($conn, $query);
-    $row = mysqli_fetch_array($result);
     $text = 'text';
     $content = '<div>
     <form action="podstrony.php" method="post"> 
-    <input type="text" name="tytul">
+    <input type="text" name="tytul" placeholder="Tytuł">
     <br>
-    <textarea name="tresc" value=' . $text . ' placeholder="Tytuł"></textarea>
+    <textarea name="tresc" value=' . $text . ' placeholder="Konktekst Strony"></textarea>
     <input type="submit" name="zapisz">
     </form>
     </div>';

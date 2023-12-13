@@ -1,12 +1,9 @@
 <link rel="stylesheet" href="../css/logowanie.css">
 <?php
-session_start();
+include '../cfg.php';
 ?>
-<div>
-  Logowanie
-</div>
 <?php
-echo FormularzLogoawania();
+FormularzLogoawania();
 ?>
 <?php
 function FormularzLogoawania()
@@ -34,6 +31,7 @@ function FormularzLogoawania()
   if (isset($_POST['login']) && isset($_POST['haslo'])) {
     if ($_SESSION['login'] == $_POST['login'] && $_SESSION['haslo'] == $_POST['haslo']) {
       header('Location: podstrony.php');
+      session_start();
       exit();
     } else {
       echo '<div class="answer"> BŁĄD </br>popraw login lub hasło</div>';

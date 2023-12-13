@@ -1,6 +1,4 @@
 <?php
-
-
 $dbhost = 'localhost';
 $dbuster = 'root';
 $dbpass = '';
