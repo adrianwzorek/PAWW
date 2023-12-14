@@ -1,0 +1,61 @@
+.container {
+  background-color: red;
+  width: 50svh;
+  aspect-ratio: 1;
+  border: 20px solid black;
+  box-shadow: 10px 10px 20px blue;
+  display: flex;
+  align-items: baseline;
+  position: relative;
+}
+
+.top {
+  font-size: 5svh;
+  text-align: center;
+}
+
+.blok {
+  position: absolute;
+  width: 75%;
+  display: flex;
+  flex-flow: column;
+  left: 10%;
+  top: 20%;
+}
+
+.blok:nth-child(2) {
+  top: 45%;
+}
+
+.blok > input {
+  border-radius: 50px;
+  text-align: center;
+  font-size: 2rem;
+}
+
+#button {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  margin: 1.75rem;
+  width: 10svh;
+  aspect-ratio: 2/1;
+  font-size: 2svh;
+  border: 2px solid black;
+  border-radius: 50px;
+}
+
+#button:hover {
+  cursor: pointer;
+}
+
+.answer {
+  position: absolute;
+  bottom: 80px;
+  left: 60px;
+  text-shadow: 10px 0px 10px red;
+  font-size: 3rem;
+  width: 50svh;
+  aspect-ratio: 2.5/1;
+  /* border: 2px solid red; */
+}

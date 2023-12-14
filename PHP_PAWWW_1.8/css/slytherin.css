@@ -1,0 +1,144 @@
+* {
+  color: #fcfbfb;
+}
+body {
+  margin: 10px;
+  position: relative;
+  overflow-x: hidden;
+  background-image: url("./Pictures/Slyth/slytherin-aesthetic-dark-green-fabric-8ppb4ymzkqmscz5n.webp");
+  background-size: 150%;
+  padding: 20px;
+  text-shadow: 2px 0 0 #000, 0 -2px 0 #000, 0 2px 0 #000, -2px 0 0 #000;
+}
+
+footer {
+  position: fixed;
+  bottom: 0;
+  width: 110%;
+  color: #000;
+  background-color: white;
+  text-align: center;
+  z-index: 1;
+  margin: 0 -10%;
+  text-shadow: 0 0 0;
+}
+
+footer > a {
+  background-color: green;
+}
+
+.mail:hover {
+  cursor: pointer;
+}
+
+#back {
+  width: calc(20%);
+  height: 200px;
+  font-size: 30px;
+  text-decoration: none;
+}
+
+h1 {
+  text-align: center;
+  font-size: 8vh;
+}
+
+table {
+  width: calc(100%);
+  height: 850px;
+  color: wheat;
+  position: relative;
+  padding: 10px;
+  font-size: calc(110%);
+  text-shadow: 1px 0 0 #000, 0 -1px 0 #000, 0 1px 0 #000, -1px 0 0 #000;
+}
+tr {
+  vertical-align: top;
+}
+th {
+  color: rgb(255, 255, 255);
+}
+
+#hero {
+  width: calc(20%);
+  height: 450px;
+  background-image: url(./Pictures/Slyth/Salazarslytherin.webp);
+  background-size: cover;
+  background-position: calc(50%);
+  border-radius: 50%;
+  float: right;
+  margin-bottom: 20px;
+}
+
+#hero:hover {
+  background-image: url(./Pictures/Slyth/hogwarts-legacy-houses-2-900x506.jpg);
+  background-size: cover;
+  height: 400px;
+  width: calc(30%);
+  background-position: calc(50%);
+}
+th > img {
+  border-radius: 100%;
+  width: calc(20%);
+  height: calc(50%);
+  position: sticky;
+  float: right;
+  margin: 10px;
+  width: 200px;
+  height: 250px;
+}
+
+th > img:hover {
+  scale: calc(120%);
+  z-index: 1;
+}
+th > h1 {
+  font-size: 5vh;
+}
+
+#people {
+  font-size: 50px;
+  color: rgb(244, 66, 66);
+  text-shadow: 1px 0 0 #000, 0 -1px 0 #000, 0 1px 0 #000, -1px 0 0 #000;
+}
+
+#people:hover {
+  cursor: pointer;
+  opacity: calc(50%);
+}
+.__info {
+  font-size: calc(250%);
+  margin: 50px;
+  padding: 50px;
+}
+
+#herb {
+  font-size: 10vh;
+}
+
+#herb:hover {
+  cursor: pointer;
+  opacity: 50%;
+}
+
+.title {
+  font-size: 30px;
+}
+
+#info {
+  display: block;
+}
+
+.student {
+  position: sticky;
+  background-image: url("./Pictures/Slyth/Voldemort16lat.webp");
+  background-size: cover;
+  border-radius: 100%;
+  float: right;
+  margin: 10px;
+  width: 200px;
+  height: 250px;
+}
+.student:hover {
+  background-image: url("./Pictures/Slyth/Mariddle.webp");
+}

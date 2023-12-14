@@ -1,0 +1,333 @@
+* {
+  color: #000;
+}
+body {
+  margin: 10px;
+  position: relative;
+  color: #000;
+  background-image: url(./Pictures/istockphoto-654922866-612x612.jpg);
+  background-size: cover;
+  overflow-x: hidden;
+}
+ul {
+  list-style-type: none;
+  display: block;
+  height: calc(100%);
+  width: calc(100%);
+  margin: 0;
+  padding: 0;
+  text-align: center;
+}
+
+li {
+  display: inline-block;
+  font-size: 30px;
+  width: calc(20%);
+  text-decoration: none;
+  padding: 10px 15px;
+  margin: 5px;
+  opacity: calc(75%);
+  height: 50px;
+  margin: 5px;
+  padding: 20px;
+}
+
+li:hover + a {
+  opacity: calc(100%);
+}
+
+ul li a {
+  display: block;
+  width: 100%;
+  text-align: center;
+  border: none;
+  text-decoration: none;
+  opacity: calc(50%);
+  color: black;
+  margin: 5px 5px 5px 5px;
+}
+
+ul li a:hover {
+  opacity: calc(100%);
+  transform: scale(1.4);
+  z-index: 10;
+  color: #fff;
+  background: local;
+}
+
+li:first-child:hover {
+  background-image: url(./Pictures/Gryf/gryffindor-colors-vertical-pattern-of8ps396ywncbvnq.jpg);
+  background-size: cover;
+}
+
+li:nth-child(2):hover {
+  background-image: url(./Pictures/Slyth/slytherin-aesthetic-dark-green-fabric-8ppb4ymzkqmscz5n.webp);
+  background-size: cover;
+}
+
+li:nth-child(3):hover {
+  background-image: url(./Pictures/Raven/vintage-ravenclaw-crest-61x5bau4ewpp4kcm.webp);
+  background-position: 50%;
+}
+
+li:last-child:hover {
+  background-image: url(./Pictures/Huff/hufflepuff-1920-x-1080-background-2rseqe4awc3xyk2j.webp);
+  background-size: cover;
+}
+
+span {
+  text-align: center;
+  color: white;
+  background-color: red;
+}
+
+footer {
+  position: fixed;
+  bottom: 0;
+  font-size: 20px;
+  width: 100%;
+  background-color: white;
+  text-align: center;
+  z-index: 1;
+  margin: 0px -10px;
+  padding: 0;
+}
+footer > img {
+  float: right;
+  width: 25px;
+  margin: 0 1%;
+}
+
+footer > img:hover {
+  cursor: pointer;
+}
+
+.mail {
+  background-color: #fc2200;
+}
+
+.mail:hover {
+  cursor: pointer;
+}
+
+.t1 {
+  background-color: blue;
+}
+
+.t2 {
+  background-color: aquamarine;
+}
+
+.house {
+  width: 200px;
+  background-size: cover;
+  float: left;
+  max-width: 100%;
+  max-width: 100%;
+  height: 100px;
+  mix-blend-mode: lighten;
+}
+
+#hogwart {
+  width: 500px;
+  max-width: calc(50%);
+  height: 350px;
+  border-radius: 50%;
+  float: left;
+  margin: 5px;
+  background-image: url(./Pictures/The_Wizarding_World_of_Harry_Potter_09.jpg);
+  background-position: calc(50%);
+  background-size: cover;
+  margin-bottom: 20px;
+}
+
+#hogwart:hover {
+  background-image: url(./Pictures/harry-potter-zoom-background-ey1wy31b6pclofru.webp);
+  background-position: calc(50%);
+  background-size: cover;
+}
+
+.hogwart__info {
+  font-size: 30px;
+  font-family: cursive;
+  color: #211e3f;
+  margin-bottom: 50px;
+  animation: animation2 3s;
+}
+
+h1 {
+  text-align: center;
+}
+
+i {
+  float: right;
+  margin: 10px 20px;
+}
+
+i:hover {
+  cursor: pointer;
+}
+
+.container {
+  width: 10px;
+  height: 10px;
+  position: absolute;
+}
+
+#topInfo {
+  position: relative;
+  display: inline-block;
+  width: calc(100%);
+  align-items: center;
+  text-align: center;
+}
+
+#time {
+  width: 250px;
+  font-size: 50px;
+  top: 10px;
+  height: 60px;
+  color: #fff;
+  float: right;
+}
+
+@keyframes animation {
+  0% {
+    left: -10%;
+  }
+
+  50% {
+    left: 55%;
+    letter-spacing: 40px;
+  }
+
+  100% {
+    left: 40%;
+    letter-spacing: 0px;
+  }
+}
+
+#title {
+  position: absolute;
+  z-index: 1;
+  left: 40%;
+  font-size: 60px;
+  margin: 0;
+  bottom: 0;
+  animation-name: animation;
+  animation-duration: 2s;
+}
+
+#magic {
+  width: 60px;
+  height: 60px;
+  float: left;
+}
+
+#magic:hover {
+  cursor: pointer;
+}
+
+.magic_active #box1 {
+  transform: translate(0, 15px) rotate(45deg);
+}
+
+.magic_active #box2 {
+  opacity: 0;
+}
+
+.magic_active #box3 {
+  transform: translate(0, -15px) rotate(-45deg);
+}
+
+.box {
+  width: 60px;
+  background-color: #000;
+  z-index: 1;
+  height: 5px;
+  margin: 10px 0px;
+  border-radius: 10%;
+  transition: 0.4s;
+}
+
+#menu > li:hover {
+  background-image: none;
+}
+#menu > li {
+  position: absolute;
+  margin: 0;
+  width: 20px;
+  height: 20px;
+}
+
+#menu > li > img {
+  position: absolute;
+  z-index: 1;
+  width: 50px;
+  height: 50px;
+  top: 0;
+  left: 0;
+  opacity: 100%;
+}
+.m_nactive > li > img:hover {
+  cursor: default;
+}
+
+#menu > li:nth-child(1) {
+  left: 10%;
+  margin: 0.5% 5% 0 0;
+}
+
+#menu > li:nth-child(2) {
+  left: 20%;
+  margin: 0.5% 5% 0 0;
+}
+
+.m_active > li > img:hover {
+  cursor: pointer;
+}
+
+@keyframes animation2 {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 100;
+  }
+}
+
+@keyframes animation3 {
+  0% {
+    opacity: 100;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+.m_nactive {
+  opacity: 0;
+  animation-name: animation3;
+  animation-duration: 0.5s;
+}
+
+.m_active {
+  opacity: 100;
+  animation-name: animation2;
+  animation-duration: 0.5s;
+}
+
+#info_table {
+  position: absolute;
+  top: 30%;
+  left: 10%;
+  width: 75%;
+  height: 50%;
+  color: black;
+  font-size: 40px;
+  text-align: justify;
+  opacity: 0;
+}
+.nactive_link {
+  pointer-events: none;
+}
