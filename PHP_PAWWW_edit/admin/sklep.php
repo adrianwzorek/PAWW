@@ -1,96 +1,90 @@
 <?php
 include '../cfg.php';
-Add($conn);
-ShowAll($conn);
-DeleteOne($conn);
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+if (isset($_REQUEST['action'])) {
+    if ($_REQUEST['action'] == "DELETE") {
+        return DeleteOne($conn);
+    }
+    if ($_REQUEST['action'] == 'DODAJ') {
+        return Add($conn);
+    } else {
+        echo 'brak możliwości';
+    }
+}
+if (isset($_REQUEST['add']) && $_REQUEST['add'] == 'tak') {
+    echo 'Dodano podstrone';
+    ShowAll($conn);
+} else {
+    ShowAll($conn);
+}
 
 
 function Add($conn)
 {
-    $option = '<div class="container">
-    <form method="post">
-    <label>Podaj nazwę kategorii </label> </br>
-    <input type="text" required name="nazwa" /> </br>
-    <label>Czy jest to kategoria główna?</label> </br>
-    <input type="checkbox" name="kategoria" value="tak"  /> TAK 
-    <input type="checkbox" name="kategoria" value="tak"  /> NIE </br>
-    <input type="submit" name="sub" value="Dodaj"/>
-    </form>
-    </div>';
+
+    echo '<div class="container">
+            <form method="post">
+            <label>Podaj nazwę kategorii </label> </br>
+            <input type="text" required name="nazwa" /> </br>
+            <label>Czy jest to kategoria główna?</label> </br>
+            <input type="checkbox" name="kategoria" value="tak"  /> TAK 
+            <input type="checkbox" name="kategoria" value="nie"  /> NIE </br>
+            <input type="submit" name="sub" value="Dodaj"/>
+            </form>
+            <a href="sklep.php">Cofnij</a>
+            </div>';
+
+
     /****************************************************** */
     // Dodawnie na razie tylko i wyłądznie kategorii głównych
     // Brak przejścia do podkategorii -> zrobić to w odpoowiednim czasie
-    // Dodaj 2x to samo -> zmienić to
     /****************************************************** */
-    if (isset($_POST['sub']) && isset($_POST['nazwa'])) {
-        if (!isset($_POST['kategoria'])) $_POST['kategoria'] = 'nie';
-        // echo 'wyniki Post:</br>
-        // nazwa = ' . $_POST['nazwa'] . ' </br>
-        // czy główna? = ' . $_POST['kategoria'] . '
-        // ';
-        $query = 'INSERT INTO `sklep`(`nazwa_kategorii`,`matka`) VALUES ("' . $_POST['nazwa'] . '","' . $_POST['kategoria'] . '")';
+    if (isset($_REQUEST['sub']) && $_REQUEST['sub'] == 'Dodaj') {
+        $query = 'INSERT INTO `sklep`(`nazwa_kategorii`,`matka`) VALUES ("' . $_REQUEST['nazwa'] . '","' . $_REQUEST['kategoria'] . '")';
         mysqli_query($conn, $query);
+        echo '<div class="info">Dodano nową strone<div>';
+        header("Location: sklep.php?add=tak");
     }
-
-    echo $option;
 }
+
+
 
 function ShowAll($conn)
 {
     $query = 'SELECT * FROM `sklep`';
     $result = mysqli_query($conn, $query);
-
+    echo '<div class="title"> Wszystkie kategorie</div> <br>';
     while ($item = mysqli_fetch_array($result)) {
-        echo '<form class="item" method="post">
+        echo '<form class="item" method="get">
         ' . $item['id'] . ' -> ' . $item['nazwa_kategorii'] . '
-        <input type="submit" name="usun" value="USUŃ"/>
+        <input type="submit" name="action" value="DELETE"/>
         <input type="hidden" name="itemId" value="' . $item['id'] . '"/>
         <input type="hidden" name="itemName" value="' . $item['nazwa_kategorii'] . '"/>
         </form>';
     }
+    echo '<form method="get">
+    <input type="submit" name="action" value="DODAJ">
+    </form>';
 }
 
 function DeleteOne($conn)
 {
-    /********************************* */
-    // Usuwa ale zostawia informacje przy następnej operacji
-    // Błąd w 88 lini
-    /********************************* */
+    $form = '<form class="popup" method="post">Chcesz usunąć ' . $_REQUEST['itemName'] . ' ?
+        <input type="submit" name="val" value="TAK"/>
+        <input type="submit" name="val" value="NIE"/>
+        </form>';
+    echo $form;
+    if (isset($_REQUEST['val'])) {
 
-
-    if (isset($_POST['usun'])) {
-        $id = $_POST['itemId'];
-        echo '<form class="popup" method="get">Chcesz usunąć ' . $_POST['itemName'] . ' ?
-            <input type="submit" name="val" value="TAK"/>
-            <input type="submit" name="val" value="NIE"/>
-            </form>';
-    }
-    if (empty($_GET['val']) && empty($id)) {
-        return;
-    } else {
-
-        if (isset($_GET) && $_GET['val'] == "TAK") {
-            echo '<div class="info yes">Usunięto pomyślnie stronę</div>';
-            $query = 'DELETE FROM sklep WHERE id="' . $id . '" LIMIT 1';
+        if ($_REQUEST['val'] == "TAK") {
+            echo 'Właśnie usunięto stronę ' . $_REQUEST['itemName'];
+            $query = 'DELETE FROM sklep WHERE id=' . $_REQUEST['itemId'] . '';
             mysqli_query($conn, $query);
-        }
-        if ($_GET['val'] == "NIE") {
-            echo '<div class="info no"> Nie usunięto strony</div>';
-            unset($_GET['val']);
+            unset($form);
+            ShowAll($conn);
+        } else {
+            echo 'Nie usunięto strony';
+            ShowAll($conn);
         }
     }
 }

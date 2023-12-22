@@ -25,12 +25,15 @@ include '../showpage.php';
             echo '<div class="info">dodano stronę</div>';
         }
     }
+
     // sprawdzam czy GET jest jest usuń i usuwam dana podstronę
     elseif (isset($_GET['usun'])) {
         echo '<div class="info">Usunięto stronę o id=' . $_GET['page_id'] . '</div>';
         $query = 'DELETE FROM page_list WHERE id = "' . $_GET['page_id'] . '" LIMIT 1';
         mysqli_query($conn, $query);
     }
+
+
     ListaPodstron($conn);
     if (isset($_GET['dodaj'])) {
         DodajPodstrone($conn);
@@ -97,7 +100,7 @@ function EdytujPodstrone($conn)
 function DodajPodstrone($conn)
 {
     $query = "SELECT * FROM page_list";
-    $result = mysqli_query($conn, $query);
+    mysqli_query($conn, $query);
     $text = 'text';
     $content = '<div>
     <form action="podstrony.php" method="post"> 
