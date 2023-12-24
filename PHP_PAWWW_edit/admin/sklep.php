@@ -124,7 +124,7 @@ function Add($conn)
 function Edit($conn)
 {
     /************************** */
-    // Edycja nazwy
+    // Edycja nazwy oraz głównej kategorii
     /************************** */
 
     if (isset($_REQUEST['action'])) {
