@@ -1,0 +1,22 @@
+#back {
+  width: 150px;
+  font-size: 8vh;
+  margin: 10px 10px;
+}
+#back:hover {
+  cursor: pointer;
+}
+
+iframe {
+  width: 33%;
+  height: 50vh;
+}
+
+#description {
+  width: 100%;
+}
+
+#description > p {
+  font-size: 8vh;
+  text-align: center;
+}
