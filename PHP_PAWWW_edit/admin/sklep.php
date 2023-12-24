@@ -44,6 +44,10 @@ if (isset($_REQUEST['del'])) {
 
 function Add($conn)
 {
+    /******************************************* */
+    // Dodaje do 3 podkategorii
+    /******************************************* */
+
     echo '<form method="post">
     <h1>Jaką kategorię dodajesz?</h1>
     <input type="submit" name="chose" value="glowna"/>
@@ -60,21 +64,35 @@ function Add($conn)
         }
         if ($_REQUEST['chose'] == 'podkategoria') {
             $query = 'SELECT * FROM sklep';
-            $result = mysqli_query($conn, $query);
+            $result1 = mysqli_query($conn, $query);
+            // $result2 = mysqli_query($conn, $query);
+            $calc = 0;
             echo '<h1>Wybierz do której kategorii chcesz dodać:</h1>
                 <form method="post">';
-            foreach ($result as $row) {
+            foreach ($result1 as $row) {
                 if ($row['matka'] == 0) {
-                    echo '<input required type="radio" name="item" value="' . $row['id'] . '">' . $row['nazwa_kategorii'] . '</input> </br>';
+                    $calc = $row['id'];
+                    $query = 'SELECT * FROM sklep WHERE matka=' . $row['id'] . '';
+                    $result2 = mysqli_query($conn, $query);
+                    echo '<input required type="radio" name="item" value="' . $row['id'] . '">' . $row['nazwa_kategorii'] . ' [Kategoria glowna]</input> </br>';
+                    foreach ($result2 as $secrow) {
+                        echo '<input required type="radio" name="item" value="' . $secrow['id'] . '">' . $secrow['nazwa_kategorii'] . ' [Podkategoria -> ' . $row['nazwa_kategorii'] . '] </input> </br>';
+                        $query = 'SELECT * FROM sklep WHERE matka=' . $secrow['id'] . '';
+                        $result3 = mysqli_query($conn, $query);
+                        foreach ($result3 as $thirdrow) {
+                            echo '<input required type="radio" name="item" value="' . $thirdrow['id'] . '">' . $thirdrow['nazwa_kategorii'] . ' [Podkategoria -> ' . $secrow['nazwa_kategorii'] . '] </input> </br>';
+                        }
+                    }
                 }
             }
-            echo ' </br>
-            <label for="name">Podaj nazwę:</label>
+        }
+        echo ' </br>
+            <label>Podaj nazwę:</label>
         <input type="text" name="name"/>
         <input type="submit" name="add" value="Dodaj"/>
                 </form>';
-        }
     }
+
     if (isset($_REQUEST['add']) && isset($_REQUEST['name'])) {
         if (isset($_REQUEST['chose']) && $_REQUEST['add'] == 'Dodaj') {
             if ($_REQUEST['chose'] == 'main') {
