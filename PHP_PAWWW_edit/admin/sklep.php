@@ -14,7 +14,7 @@ if (isset($_REQUEST['action'])) {
         return Add($conn);
     }
     if ($_REQUEST['action'] == 'EDIT') {
-        echo 'Edytuje';
+        return Edit($conn);
     } else {
         echo 'brak możliwości';
     }
@@ -40,15 +40,22 @@ if (isset($_REQUEST['del'])) {
         return ShowAll($conn);
     }
 }
+if (isset($_REQUEST['edit'])) {
+    if ($_REQUEST['edit'] == 'tak') {
+        echo 'Zmieniono nazwę';
+        return ShowAll($conn);
+    }
+}
 
 
 function Add($conn)
 {
     /******************************************* */
-    // Dodaje do 3 podkategorii
+    // Dodaje do 3 podkategorii włącznie
     /******************************************* */
 
     echo '<form method="post">
+    <a href="sklep.php">Cofnij</a>
     <h1>Jaką kategorię dodajesz?</h1>
     <input type="submit" name="chose" value="glowna"/>
     <input type="submit" name="chose" value="podkategoria"/>
@@ -60,13 +67,16 @@ function Add($conn)
             <label for="name">Podaj nazwę dla głownej:</label>
             <input type="text" name="name"/>
             <input type="hidden" name="chose" value="main"/>
-            <input type="submit" name="add" value="Dodaj"/>';
+            <input type="submit" name="add" value="Dodaj"/> <br>
+            
+            </form>';
         }
         if ($_REQUEST['chose'] == 'podkategoria') {
             $query = 'SELECT * FROM sklep';
             $result1 = mysqli_query($conn, $query);
             // $result2 = mysqli_query($conn, $query);
             $calc = 0;
+
             echo '<h1>Wybierz do której kategorii chcesz dodać:</h1>
                 <form method="post">';
             foreach ($result1 as $row) {
@@ -74,7 +84,7 @@ function Add($conn)
                     $calc = $row['id'];
                     $query = 'SELECT * FROM sklep WHERE matka=' . $row['id'] . '';
                     $result2 = mysqli_query($conn, $query);
-                    echo '<input required type="radio" name="item" value="' . $row['id'] . '">' . $row['nazwa_kategorii'] . ' [Kategoria glowna]</input> </br>';
+                    echo '<input required type="radio" name="item" value="' . $row['id'] . '"><b>' . $row['nazwa_kategorii'] . ' [Kategoria glowna]</b></input> </br>';
                     foreach ($result2 as $secrow) {
                         echo '<input required type="radio" name="item" value="' . $secrow['id'] . '">' . $secrow['nazwa_kategorii'] . ' [Podkategoria -> ' . $row['nazwa_kategorii'] . '] </input> </br>';
                         $query = 'SELECT * FROM sklep WHERE matka=' . $secrow['id'] . '';
@@ -85,12 +95,12 @@ function Add($conn)
                     }
                 }
             }
+            echo ' </br>
+                <label>Podaj nazwę:</label>
+            <input type="text" name="name"/>
+            <input type="submit" name="add" value="Dodaj"/> <br>
+            </form>';
         }
-        echo ' </br>
-            <label>Podaj nazwę:</label>
-        <input type="text" name="name"/>
-        <input type="submit" name="add" value="Dodaj"/>
-                </form>';
     }
 
     if (isset($_REQUEST['add']) && isset($_REQUEST['name'])) {
@@ -113,18 +123,36 @@ function Add($conn)
 
 function Edit($conn)
 {
+    /************************** */
+    // Edycja nazwy
+    /************************** */
+
     if (isset($_REQUEST['action'])) {
         if ($_REQUEST['action'] == 'EDIT') {
+            $query = 'SELECT * FROM sklep';
+            $result = mysqli_query($conn, $query);
             echo '<div class="container">
-            <form method="post">
-            <input type="text" required name="' . $_REQUEST['itemName'] . '" /> </br>
-            <label>Czy jest to kategoria główna?</label> </br>
-            <input type="checkbox" name="kategoria" value="tak"  /> TAK 
-            <input type="checkbox" name="kategoria" value="nie"  /> NIE </br>
+            <h1>Wybierz kategorie i nadaj nazwę: </h1>
+            <form method="post">';
+            foreach ($result as $item) {
+                if ($item['matka'] == 0) {
+                    echo '<input type="radio" required name="item" value="' . $item['id'] . '" > ' . $item['nazwa_kategorii'] . '</input><br>';
+                }
+            }
+            echo '
+            <input type="text" required  name="name"  value="' . $_REQUEST['itemName'] . '" /> </br>
+            <input type="hidden" name="itemId" value="' . $_REQUEST['itemId'] . '"/>
             <input type="submit" name="sub" value="Dodaj"/>
-            </form>
             <a href="sklep.php">Cofnij</a>
+            </form>
             </div>';
+        }
+    }
+    if (isset($_REQUEST['sub'])) {
+        if (isset($_REQUEST['name']) && isset($_REQUEST['itemId']) && isset($_REQUEST['item'])) {
+            $query = 'UPDATE sklep SET `nazwa_kategorii`="' . $_REQUEST['name'] . '", `matka`="' . $_REQUEST['item'] . '" WHERE id="' . $_REQUEST['itemId'] . '" ';
+            mysqli_query($conn, $query);
+            header("Location: sklep.php?edit=tak");
         }
     }
 }
@@ -136,7 +164,8 @@ function ShowAll($conn)
     echo '<div class="title"> Wszystkie kategorie</div> <br>';
     while ($item = mysqli_fetch_array($result)) {
         echo '<form class="item" method="get">
-        ' . $item['id'] . ' -> ' . $item['nazwa_kategorii'] . '
+        ' . $item['id'] . ' -> ' . $item['nazwa_kategorii'] . ' [matka : 
+        ' . $item['matka'] . ']<br>
         <input type="submit" name="action" value="DELETE"/>
         <input type="submit" name="action" value="EDIT"/>
         <input type="hidden" name="itemId" value="' . $item['id'] . '"/>
@@ -150,6 +179,10 @@ function ShowAll($conn)
 
 function DeleteOne($conn)
 {
+    /****************************** */
+    // Usuwa kategorię i pozsotałe podkategorie danej kategorii
+    // Usuwa kaskadowo
+    /****************************** */
     echo '<form class="popup" method="post">Chcesz usunąć ' . $_REQUEST['itemName'] . ' ?
         <input type="submit" name="val" value="TAK"/>
         <input type="submit" name="val" value="NIE"/>
@@ -157,6 +190,8 @@ function DeleteOne($conn)
     if (isset($_REQUEST['val'])) {
         if ($_REQUEST['val'] == "TAK") {
             $query = 'DELETE FROM sklep WHERE id=' . $_REQUEST['itemId'] . '';
+            mysqli_query($conn, $query);
+            $query = 'DELETE FROM sklep WHERE matka=' . $_REQUEST['itemId'] . '';
             mysqli_query($conn, $query);
             header("Location: sklep.php?del=tak");
         } else {
