@@ -1,5 +1,5 @@
-<div class='container'>
-    <h1> Pokaż kontakt</h1>
+<link rel="stylesheet" href="../css/style.css">
+<div class='container--kontakt'>
     <?php
     PokazKontakt();
     WyslijMailKontakt();
@@ -13,18 +13,13 @@ function PokazKontakt()
 {
     $kontakt = '<form  method="post">
 
-    <div class="place">
-        <label> E-mail:</label>
         <input required type="text" name="email" placeholder="E-Mail" class="write__place" />
-    </div>
-
-    <div class="place">
-        <label>Temat:</label>
+    
+       
         <input required  type="text" name="title" placeholder="Nadaj Temat" class="write__place" />
-    </div>
+    
     <br />
     <textarea required name="tekst" id="description" cols="30" rows="10" placeholder="Opis"></textarea>
-    <br />
     <input type="submit" name="wyslij" value="Wyślij" class="button" />
     <input type="reset" name ="reset" value="Resetuj" class="button" />
     </form>';
