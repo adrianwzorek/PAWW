@@ -11,7 +11,17 @@ body {
 
 }
 
+h1 {
+    position: absolute;
+    top: -2.5em;
+    padding: .2em;
+    border-radius: 2em;
+    box-shadow: 0 0 10px 20px white;
+    border: 1px solid white;
+}
+
 .container--kontakt {
+    position: relative;
     width: clamp(25svw, 50svw, 60svw);
     height: clamp(25svh, 70svh, 75svh);
     border-radius: 5rem;

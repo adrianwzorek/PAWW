@@ -1,5 +1,6 @@
 <link rel="stylesheet" href="../css/style.css">
 <div class='container--kontakt'>
+    <h1>Napisz do mnie Maila :D</h1>
     <?php
     PokazKontakt();
     WyslijMailKontakt();
