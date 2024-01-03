@@ -1,5 +1,7 @@
 <?php
-include '../showpage.php';
+// include '../showpage.php';
+include '../cfg.php'
+// include './admin.php';
 ?>
 
 
@@ -42,7 +44,14 @@ include '../showpage.php';
     }
     echo '<form action="podstrony.php" method="get">
                 <input type="submit" name="dodaj" value="dodaj">
-                </form>';
+                </form>
+                <a href="sklep.php">
+                Zarządzaj skelpem
+                </a>
+                <a href="logout.php"> Wyolugj</a>
+                
+    ';
+    echo PHP_SESSION_ACTIVE;
     ?>
 </div>
 

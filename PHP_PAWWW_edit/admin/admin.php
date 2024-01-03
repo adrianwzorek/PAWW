@@ -1,13 +1,12 @@
 <link rel="stylesheet" href="../css/style.css">
 <?php
+session_start();
 include '../cfg.php';
-?>
-<?php
-FormularzLogoawania();
+FormularzLogowania($login, $haslo);
 ?>
 <?php
 // Tworze formularz Logowania
-function FormularzLogoawania()
+function FormularzLogowania($login, $haslo)
 {
   $form = '<div class="container">
     <form action="admin.php" method="post">
@@ -26,19 +25,20 @@ function FormularzLogoawania()
       </div>
       <input id="button" type="submit" value="Log in" />
     </form>
-  </div>
-    ';
+  </div>';
+  echo session_status();
   echo $form;
-  // Sprawdzam czy Post i Get istnieją i są podane prawidłowo
+
+  // Sprawdzam czy Post  istnieje i jest podane prawidłowo
+
   if (isset($_POST['login']) && isset($_POST['haslo'])) {
-    if ($_SESSION['login'] == $_POST['login'] && $_SESSION['haslo'] == $_POST['haslo']) {
+    $_SESSION['login'] = $_POST['login'];
+    $_SESSION['haslo'] = $_POST['haslo'];
+    if ($_SESSION['login'] == $login   &&  $_SESSION['haslo'] == $haslo) {
       // Jeśli tak przechodze do innego pliku i zaczynam sesje
       header('Location: podstrony.php');
-      session_start();
+      echo $_SESSION['login'] . ' ' . $_SESSION['haslo'];
       exit();
-    } else {
-      // jeśli jest błąd wyświtlam komunikat
-      echo '<div class="answer"> BŁĄD </br>popraw login lub hasło</div>';
     }
   }
 }

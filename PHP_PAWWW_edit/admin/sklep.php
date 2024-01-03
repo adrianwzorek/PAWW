@@ -174,7 +174,10 @@ function ShowAll($conn)
     }
     echo '<form method="get">
     <input type="submit" name="action" value="DODAJ">
-    </form>';
+    </form>
+    <a href="podstrony.php">
+    Zarządzaj podstronami
+    </a>';
 }
 
 function DeleteOne($conn)

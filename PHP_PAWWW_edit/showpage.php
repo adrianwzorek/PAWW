@@ -16,4 +16,4 @@ function showTab($id, $conn)
     }
     return $web;
 }
-//$mysqli -> close();
+// $mysqli->close();
