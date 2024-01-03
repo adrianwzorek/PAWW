@@ -26,7 +26,7 @@ if ($_GET['id']  == 'admin') $strona = 'admin.php';
   <link rel="website icon" href="./css/Pictures/harry-potter-zoom-background-ey1wy31b6pclofru.webp" />
   <script src="./js/jquery-3.7.1.min.js"></script>
   <script src="./js/script.js"></script>
-
+  <link rel="stylesheet" href="./css/style.css">
   <link rel="stylesheet" type="text/css" href="./css/index.css" />
 </head>
 

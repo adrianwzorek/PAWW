@@ -26,7 +26,6 @@ function FormularzLogowania($login, $haslo)
       <input id="button" type="submit" value="Log in" />
     </form>
   </div>';
-  echo session_status();
   echo $form;
 
   // Sprawdzam czy Post  istnieje i jest podane prawidłowo
@@ -39,6 +38,8 @@ function FormularzLogowania($login, $haslo)
       header('Location: podstrony.php');
       echo $_SESSION['login'] . ' ' . $_SESSION['haslo'];
       exit();
+    } else {
+      echo '<span class="popup">Nie poprawne hasło lub login</span>';
     }
   }
 }

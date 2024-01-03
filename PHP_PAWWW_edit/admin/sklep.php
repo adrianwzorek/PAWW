@@ -1,50 +1,54 @@
 <?php
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
-
+// error_reporting(E_ALL);
 include '../cfg.php';
-if (empty($_REQUEST)) {
-    ShowAll($conn);
-}
-if (isset($_REQUEST['action'])) {
-    if ($_REQUEST['action'] == "DELETE") {
-        return DeleteOne($conn);
-    }
-    if ($_REQUEST['action'] == 'DODAJ') {
-        return Add($conn);
-    }
-    if ($_REQUEST['action'] == 'EDIT') {
-        return Edit($conn);
-    } else {
-        echo 'brak możliwości';
-    }
-}
-if (isset($_REQUEST['add'])) {
-    if ($_REQUEST['add'] == 'main') {
-        echo '<div class="info">Dodano nową Kategorię główną<div>';
-        ShowAll($conn);
-    }
-    if ($_REQUEST['add'] == 'sub') {
-        echo '<div class="info">Dodano nową Podkategorię<div>';
-        ShowAll($conn);
-    }
-}
+session_start();
+if (isset($_SESSION['login']) && isset($_SESSION['haslo'])) {
 
-if (isset($_REQUEST['del'])) {
-    if ($_REQUEST['del'] == 'tak') {
-        echo 'Właśnie usunięto kategorię ';
-        return ShowAll($conn);
+    if (empty($_REQUEST)) {
+        ShowAll($conn);
     }
-    if ($_REQUEST['del'] == 'nie') {
-        echo 'Nie usunięto kategorii ';
-        return ShowAll($conn);
+    if (isset($_REQUEST['action'])) {
+        if ($_REQUEST['action'] == "DELETE") {
+            return DeleteOne($conn);
+        }
+        if ($_REQUEST['action'] == 'DODAJ') {
+            return Add($conn);
+        }
+        if ($_REQUEST['action'] == 'EDIT') {
+            return Edit($conn);
+        } else {
+            echo 'brak możliwości';
+        }
     }
-}
-if (isset($_REQUEST['edit'])) {
-    if ($_REQUEST['edit'] == 'tak') {
-        echo 'Zmieniono nazwę';
-        return ShowAll($conn);
+    if (isset($_REQUEST['add'])) {
+        if ($_REQUEST['add'] == 'main') {
+            echo '<div class="info">Dodano nową Kategorię główną<div>';
+            ShowAll($conn);
+        }
+        if ($_REQUEST['add'] == 'sub') {
+            echo '<div class="info">Dodano nową Podkategorię<div>';
+            ShowAll($conn);
+        }
     }
+
+    if (isset($_REQUEST['del'])) {
+        if ($_REQUEST['del'] == 'tak') {
+            echo 'Właśnie usunięto kategorię ';
+            return ShowAll($conn);
+        }
+        if ($_REQUEST['del'] == 'nie') {
+            echo 'Nie usunięto kategorii ';
+            return ShowAll($conn);
+        }
+    }
+    if (isset($_REQUEST['edit'])) {
+        if ($_REQUEST['edit'] == 'tak') {
+            echo 'Zmieniono nazwę';
+            return ShowAll($conn);
+        }
+    }
+} else {
+    header('location: admin.php');
 }
 
 

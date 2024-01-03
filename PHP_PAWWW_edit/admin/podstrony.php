@@ -1,57 +1,56 @@
 <?php
-// include '../showpage.php';
-include '../cfg.php'
-// include './admin.php';
+include "../cfg.php";
+session_start();
 ?>
 
-
-<div class='lista_postron'>
+<div class="lista_postron">
     <?php
-    // sprawdzam czy POST i GET są
-    if (isset($_POST) && isset($_POST['tresc'])) {
-        // zmieniam treść POSTA przez specjalne znakowanie
-        $tresc = htmlspecialchars($_POST['tresc']);
-        // sprawdzam czy wybrano odpowiednią pozycję do edycji
-        if (isset($_POST['page_id'])) {
-            $query = 'UPDATE page_list SET `page_title` = "' . $_POST['tytul'] . '", `page_content` = "' . $tresc . '" WHERE id = ' . $_POST['page_id'] . ' LIMIT 1';
+    if (isset($_SESSION['login']) && isset($_SESSION['haslo'])) {
+        // sprawdzam czy POST i GET są
+        if (isset($_POST) && isset($_POST["tresc"])) {
+            // zmieniam treść POSTA przez specjalne znakowanie
+            $tresc = htmlspecialchars($_POST["tresc"]);
+            // sprawdzam czy wybrano odpowiednią pozycję do edycji
+            if (isset($_POST["page_id"])) {
+                $query = 'UPDATE page_list SET `page_title` = "' . $_POST['tytul'] . '", `page_content` = "' . $tresc . '" WHERE id = ' . $_POST['page_id'] . ' LIMIT 1';
+            }
+            // sprawdzam dodwanie nowej podstrony
+            else {
+                $query = 'INSERT INTO page_list(page_title, page_content) VALUES ("' . $_POST['tytul'] . '","' . htmlspecialchars($_POST['tresc']) . '")';
+            }
+            mysqli_query($conn, $query);
+            // wyświetlam odpowiednią informację
+            if (isset($_POST['page_id'])) {
+                echo '<div class="info">zaktualizowano stronę ' . $_POST['page_id'] . '</div>';
+            } else {
+                echo '<div class="info">dodano stronę</div>';
+            }
         }
-        // sprawdzam dodwanie nowej podstrony
-        else {
-            $query = 'INSERT INTO page_list(page_title, page_content) VALUES ("' . $_POST['tytul'] . '","' . htmlspecialchars($_POST['tresc']) . '")';
+
+        // sprawdzam czy GET jest jest usuń i usuwam dana podstronę
+        elseif (isset($_GET['usun'])) {
+            echo '<div class="info">Usunięto stronę o id=' . $_GET['page_id'] . '</div>';
+            $query = 'DELETE FROM page_list WHERE id = "' . $_GET['page_id'] . '" LIMIT 1';
+            mysqli_query($conn, $query);
         }
-        mysqli_query($conn, $query);
-        // wyświetlam odpowiednią informację
-        if (isset($_POST['page_id'])) {
-            echo '<div class="info">zaktualizowano stronę ' . $_POST['page_id'] . '</div>';
-        } else {
-            echo '<div class="info">dodano stronę</div>';
+
+
+        ListaPodstron($conn);
+        if (isset($_GET['dodaj'])) {
+            DodajPodstrone($conn);
+        } elseif (isset($_GET['edytuj'])) {
+            EdytujPodstrone($conn);
         }
+        echo '<form action="podstrony.php" method="get">
+        <input type="submit" name="dodaj" value="dodaj"><br>
+        </form>
+        <a href="sklep.php">
+        Zarządzaj sklepem
+        </a><br>
+        <a href="logout.php"> Wyloguj</a>';
+    } else {
+        header('location: admin.php');
     }
-
-    // sprawdzam czy GET jest jest usuń i usuwam dana podstronę
-    elseif (isset($_GET['usun'])) {
-        echo '<div class="info">Usunięto stronę o id=' . $_GET['page_id'] . '</div>';
-        $query = 'DELETE FROM page_list WHERE id = "' . $_GET['page_id'] . '" LIMIT 1';
-        mysqli_query($conn, $query);
-    }
-
-
-    ListaPodstron($conn);
-    if (isset($_GET['dodaj'])) {
-        DodajPodstrone($conn);
-    } elseif (isset($_GET['edytuj'])) {
-        EdytujPodstrone($conn);
-    }
-    echo '<form action="podstrony.php" method="get">
-                <input type="submit" name="dodaj" value="dodaj">
-                </form>
-                <a href="sklep.php">
-                Zarządzaj skelpem
-                </a>
-                <a href="logout.php"> Wyolugj</a>
-                
-    ';
-    echo PHP_SESSION_ACTIVE;
     ?>
 </div>
 
