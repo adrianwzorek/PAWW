@@ -8,7 +8,7 @@ FormularzLogowania($login, $haslo);
 // Tworze formularz Logowania
 function FormularzLogowania($login, $haslo)
 {
-  $form = '<div class="container">
+  echo '<div class="container">
     <form action="admin.php" method="post">
       <div class="blok">
         <div class="top lg">Login</div>
@@ -26,7 +26,6 @@ function FormularzLogowania($login, $haslo)
       <input id="button" type="submit" value="Log in" />
     </form>
   </div>';
-  echo $form;
 
   // Sprawdzam czy Post  istnieje i jest podane prawidłowo
 

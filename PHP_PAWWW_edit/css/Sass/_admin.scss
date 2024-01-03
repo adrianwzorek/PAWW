@@ -5,9 +5,10 @@
 .popup {
     position: absolute;
     top: 0;
-    background: linear-gradient(90deg, red 25%, white);
+    background: linear-gradient(to top, rgb(243, 60, 60) 20%, transparent);
     z-index: 1;
     opacity: 50%;
+    font-size: 3rem;
 }
 
 .container {
@@ -17,7 +18,7 @@
     align-items: center;
     width: 100svw;
     height: 100svh;
-    background-color: rgb(34, 148, 30);
+    background: linear-gradient(45deg, rgb(34, 148, 30) 25%, wheat);
 
     form {
         display: grid;
@@ -37,7 +38,7 @@
             height: inherit;
             box-sizing: border-box;
             position: absolute;
-            background-color: rgba(36, 83, 253, 0.701);
+            background-color: rgba(66, 104, 244, 0.701);
             border-radius: 50px;
             filter: blur(10px);
             z-index: 0;
