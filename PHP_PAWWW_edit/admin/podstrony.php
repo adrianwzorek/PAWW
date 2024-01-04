@@ -5,7 +5,7 @@ session_start();
 
 <div class="lista_postron">
     <?php
-    if (isset($_SESSION['login']) && isset($_SESSION['haslo'])) {
+    if ($_SESSION['login'] == $login && $_SESSION['haslo'] == $haslo) {
         // sprawdzam czy POST i GET są
         if (isset($_POST) && isset($_POST["tresc"])) {
             // zmieniam treść POSTA przez specjalne znakowanie

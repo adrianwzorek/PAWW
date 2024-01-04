@@ -8,7 +8,7 @@
   background: linear-gradient(to top, rgb(243, 60, 60) 20%, transparent);
   z-index: 1;
   opacity: 50%;
-  font-size: 3rem;
+  font-size: 3em;
 }
 
 .container {

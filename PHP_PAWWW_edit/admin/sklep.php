@@ -2,7 +2,7 @@
 // error_reporting(E_ALL);
 include '../cfg.php';
 session_start();
-if (isset($_SESSION['login']) && isset($_SESSION['haslo'])) {
+if ($_SESSION['login'] == $login && $_SESSION['haslo'] == $haslo) {
 
     if (empty($_REQUEST)) {
         ShowAll($conn);
