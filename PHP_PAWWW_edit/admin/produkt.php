@@ -1,8 +1,9 @@
 <?php
 include '../cfg.php';
 session_start();
-echo '<form action="post">
-    <input type="submit" name="chose" value="Dodaj" />
+ShowAll($conn);
+echo '<form method="post">
+<input type="submit" name="chose" value="Dodaj" />
 </form>';
 
 ?>
@@ -11,32 +12,49 @@ echo '<form action="post">
 
 
 <?php
+if (isset($_POST['chose']) && $_POST['chose'] == 'Dodaj') {
+    DodajProdukt($conn);
+}
+if (isset($_GET['sub'])) {
+    echo 'poszło :D';
+}
 
-
-echo $_POST['chose'];
-
-
+function ShowAll($conn)
+{
+    $query = 'SELECT * FROM produkty';
+    $result = mysqli_query($conn, $query);
+    foreach ($result as  $value) {
+        echo 'id: ' . $value['id'] . ' nazwa: ' . $value['tytul'] . ' -> ilość sztuk: ' . $value['ilosc_sztuk'] . '<br>';
+    }
+}
 
 function DodajProdukt($conn)
 {
-    echo '<form action="get">
+    // <label for="category">Kategoria</label>
+    // <input type="text" name="category"><br>
+    // <label for="photo">Zdjęcie</label>
+    // <input type="text" name="photo"><br>
+
+    echo '<form method="get">
     <label for="title">Tytuł</label>
-    <input type="text" name="title" /><br>
+    <input required type="text" name="title" /><br>
     <label for="desc">Opis</label>
-    <input type="text" name="desc" /> <br>
+    <input required type="text" name="desc" /> <br>
     <label for="value_net">Cena NETTO</label>
-    <input type="text" name="value_net"><br>
+    <input required type="text" name="value_net"><br>
     <label for="value_vat">VAT</label>
-    <input type="text" name="value_vat"><br>
+    <input required type="text" name="value_vat"><br>
     <label for="number">Ilość sztuk</label>
-    <input type="text" name="number"><br>
-    <label for="category">Kategoria</label>
-    <input type="text" name="category"><br>
+    <input required type="text" name="number"><br>
+   
     <label for="size">Gabaryt</label>
-    <input type="text" name="size"><br>
-    <label for="photo">Zdjęcie</label>
-    <input type="text" name="photo"><br>
-    <input type="submit" value="Dodaj">
+    <input required type="text" name="size"><br>
+ 
+    <input type="submit" name="sub" value="Dodaj">
 </form>';
+    if (isset($_GET['sub'])) {
+        $query = 'INSERT INTO produkty (tytul, opis, cena_netto, vat, ilosc_sztuk, gabaryt) VALUES ("' . $_GET['title'] . '","' . $_GET['desc'] . '","' . $_GET['value_net'] . '","' . $_GET['value_vat'] . '","' . $_GET['number'] . '","' . $_GET['size'] . '")';
+        mysqli_query($conn, $query);
+    }
 }
 ?>
