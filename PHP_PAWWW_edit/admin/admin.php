@@ -35,8 +35,7 @@ function FormularzLogowania($login, $haslo)
     if ($_SESSION['login'] == $login   &&  $_SESSION['haslo'] == $haslo) {
       // Jeśli tak przechodze do innego pliku i zaczynam sesje
       header('Location: podstrony.php');
-      echo $_SESSION['login'] . ' ' . $_SESSION['haslo'];
-      exit();
+      // exit();
     } else {
       echo '<span class="popup">Nie poprawne hasło lub login</span>';
     }
