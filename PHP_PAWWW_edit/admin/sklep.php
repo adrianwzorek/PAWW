@@ -1,5 +1,4 @@
 <?php
-// error_reporting(E_ALL);
 include '../cfg.php';
 session_start();
 if ($_SESSION['login'] == $login && $_SESSION['haslo'] == $haslo) {
@@ -64,7 +63,7 @@ function Add($conn)
     <input type="submit" name="chose" value="glowna"/>
     <input type="submit" name="chose" value="podkategoria"/>
     </form>';
-    $name = '';
+
     if (isset($_REQUEST['chose'])) {
         if ($_REQUEST['chose'] == 'glowna') {
             echo '<form method="post">
@@ -72,20 +71,16 @@ function Add($conn)
             <input type="text" name="name"/>
             <input type="hidden" name="chose" value="main"/>
             <input type="submit" name="add" value="Dodaj"/> <br>
-            
             </form>';
         }
         if ($_REQUEST['chose'] == 'podkategoria') {
             $query = 'SELECT * FROM sklep';
             $result1 = mysqli_query($conn, $query);
-            // $result2 = mysqli_query($conn, $query);
-            $calc = 0;
 
             echo '<h1>Wybierz do której kategorii chcesz dodać:</h1>
                 <form method="post">';
             foreach ($result1 as $row) {
                 if ($row['matka'] == 0) {
-                    $calc = $row['id'];
                     $query = 'SELECT * FROM sklep WHERE matka=' . $row['id'] . '';
                     $result2 = mysqli_query($conn, $query);
                     echo '<input required type="radio" name="item" value="' . $row['id'] . '"><b>' . $row['nazwa_kategorii'] . ' [Kategoria glowna]</b></input> </br>';
@@ -202,7 +197,6 @@ function DeleteOne($conn)
             mysqli_query($conn, $query);
             header("Location: sklep.php?del=tak");
         } else {
-            echo 'Nie usunięto strony';
             header("Location: sklep.php?del=nie");
         }
     }
