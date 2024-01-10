@@ -1,0 +1,103 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    background: linear-gradient(45deg, #00BFFF, #00FB10);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    backdrop-filter: blur(50px);
+
+}
+
+h1 {
+    position: absolute;
+    top: -2.5em;
+    padding: .2em;
+    border-radius: 2em;
+    box-shadow: 0 0 10px 20px white;
+    border: 1px solid white;
+}
+
+.container--kontakt {
+    position: relative;
+    width: clamp(25svw, 50svw, 60svw);
+    height: clamp(25svh, 70svh, 75svh);
+    border-radius: 5rem;
+    background: linear-gradient(45deg, rgb(0, 191, 255) 20%, rgb(0, 255, 0));
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: inset 2px 2px 10px 15px whitesmoke;
+    // box-shadow: 2px 2px 10px 15px whitesmoke;
+
+
+    form {
+        width: 80%;
+        height: 80%;
+        // background: linear-gradient(45deg, rgb(0, 191, 255) 10%, rgb(0, 255, 0));
+
+        font-size: 1.8em;
+        padding: .5em;
+        box-sizing: border-box;
+        display: grid;
+        grid-template-columns: 25% 25% 25% 25%;
+        grid-template-rows: 20% 20% 20% 20% 20%;
+
+        textarea {
+            grid-column-start: 1;
+            grid-column-end: 3;
+            grid-row-start: 2;
+            grid-row-end: 6;
+            margin: .2em auto;
+            resize: none;
+            width: 90%;
+            height: 100%;
+            font-size: .6em;
+            border-radius: 20px;
+            box-sizing: border-box;
+            padding: .5em;
+            ;
+        }
+
+        .write__place {
+            background-color: lightblue;
+            grid-row: 1;
+            border-radius: 2em;
+            font-size: .6em;
+            margin: 10px 10px;
+            padding: .5em;
+
+            &:first-child {
+                grid-column-start: 3;
+                grid-column-end: 5;
+            }
+
+            &:nth-child(2) {
+                grid-column-start: 1;
+                grid-column-end: 3;
+            }
+        }
+
+        .button {
+            margin: 1em;
+            font-size: .5em;
+            border-radius: 20em;
+            grid-row: 3;
+            grid-column-start: 3;
+            grid-column-end: 6;
+            transition: all 1s;
+
+            &:last-child {
+                grid-row: 5;
+            }
+
+            &:hover {
+                font-size: .8em;
+                box-shadow: 0px 0px 10px 20px rgb(0, 255, 55);
+                cursor: pointer;
+            }
+        }
+    }
+}
