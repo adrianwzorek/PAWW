@@ -4,7 +4,7 @@ include '../cfg.php';
 session_start();
 
 if (empty($_REQUEST)) {
-    return ShowAll($conn);
+    ShowAll($conn);
 }
 if (isset($_REQUEST['chose'])) {
     if ($_REQUEST['chose'] === 'Dodaj') {
@@ -17,11 +17,30 @@ if (isset($_REQUEST['chose'])) {
         return EdytujProdukt($conn);
     }
 }
-
-?>
-
-
-<?php
+if (isset($_REQUEST['info'])) {
+    if ($_REQUEST['info'] == 'add') {
+        echo '<div>Udało się dodać produkt</div>';
+        ShowAll($conn);
+        exit();
+    }
+    if ($_REQUEST['info'] === 'del') {
+        echo '<div>Udało się usunąć produkt</div>';
+        ShowAll($conn);
+        exit();
+    }
+    if ($_REQUEST['info'] === 'nie') {
+        echo '<div>Nie dokonano zmiany</div>';
+        ShowAll($conn);
+        exit();
+    }
+    if ($_REQUEST['info'] === 'update') {
+        echo '<div>Zmieniono</div>';
+        ShowAll($conn);
+        exit();
+    } else {
+        echo 'coś jest nie tak';
+    }
+}
 
 
 function ShowAll($conn)
@@ -34,51 +53,83 @@ function ShowAll($conn)
         <input type="hidden" name="item_id" value=' . $value['id'] . ' />
         <input type="hidden" name="item_name" value=' . $value['tytul'] . ' />
         <input type="submit" name="chose" value="Edytuj" />
-        <input type="submit" name="chose" value="Usun" /><br>
-        <input type="submit" name="chose" value="Dodaj" />
-    </form>';
+        <input type="submit" name="chose" value="Usun" /></form>';
     }
+    echo '<form><input type="submit" name="chose" value="Dodaj" />
+    </form>';
 }
 function EdytujProdukt($conn)
 {
-    echo 'edytuj';
+    $query = 'SELECT id, tytul, opis, cena_netto, vat, ilosc_sztuk, kategoria, gabaryt FROM produkty WHERE id="' . $_REQUEST['item_id'] . '"';
+    $query2 = 'SELECT id, nazwa_kategorii FROM sklep';
+    $result2 = mysqli_query($conn, $query2);
+    $result = mysqli_query($conn, $query);
+    $item = mysqli_fetch_array($result);
+    echo '<form class="change" method="post">
+    <label for="title">Tytuł</label>
+    <input required type="text" id="title" value="' . $item['tytul'] . '" /><br>
+    <label for="desc">Opis</label>
+    <input required type="text" name="desc" value="' . $item['opis'] . '"/> <br>
+    <label for="value_net">Cena NETTO</label>
+    <input required type="text" id="value_net" value="' . $item['cena_netto'] . '"><br>
+    <label for="value_vat">VAT</label>
+    <input required type="text" id="value_vat" value="' . $item['vat'] . '"><br>
+    <label for="number">Ilość sztuk</label>
+    <input required type="text" id="number" value="' . $item['ilosc_sztuk'] . '"><br>
+    
+    <label for="size">Gabaryt</label>
+    <input required type="text" id="size" value="' . $item['gabaryt'] . '"><br>
+    <label for="category">Kategoria</label><br>';
+    foreach ($result2 as $value) {
+        echo '<input required type="radio" id="category" value="' . $value['id'] . '">' . $value['nazwa_kategorii'] . '</input><br>';
+    }
+    echo '<input type="submit" name="update" value="Zapisz">
+    <input type="hidden" name="chose" value="Edytuj">
+    <input type="hidden" name="id" value="' . $item['id'] . '">
+    <br>
+    <a href="produkt.php"> Back</a>
+    </form>';
+    if (isset($_REQUEST['update'])) {
+        $query = 'UPDATE produkty SET tytul="' . $_REQUEST['title'] . '", opis="' . $_REQUEST['desc'] . '", cena_netto="' . $_REQUEST['value_net'] . '", vat="' . $_REQUEST['value_vat'] . '", ilosc_sztuk="' . $_REQUEST['number'] . '",  kategoria="' . $_REQUEST['category'] . '", gabaryt="' . $_REQUEST['size'] . '" WHERE id="' . $_REQUEST['id'] . '"';
+        mysqli_query($conn, $query);
+        header('Location: produkt.php?info=update');
+    }
 }
 
 function UsunProdukt($conn)
 {
-    $id = mysqli_real_escape_string($conn, $_POST['item_id']);
-    $name = mysqli_real_escape_string($conn, $_POST['item_name']);
-    echo 'Czy na pewno chcesz usunąć ' . $name . '?
-        <form class="question" method="get">
-        <input type="hidden" name="item_id" value=' . $id . ' />
-        <input type="submit" name="yes" value="TAK" />
-        <input type="submit" name="no" value="NIE" />
-        </form>';
+    echo '<form method="post" action=""> Czy na pewno chcesz usunąć  ' . $_REQUEST['item_name'] . '  ?
+        <input type="hidden" name="id" value="' . $_REQUEST['item_id'] . '">
+        <input type="hidden" name="chose" value="Usun">
+        <input type="submit" name="answer" value="TAK">
+        <input type="submit" name="answer" value="NIE">
+        </form>
+        <a href="produkt.php"> Back</a> ';
 
-    if (isset($_REQUEST['yes'])) {
-        echo 'jest';
-        // if ($_POST['answer'] === 'TAK') {
-        //     $query = 'DELETE from produkty WHERE id=' . $id;
-        //     mysqli_query($conn, $query);
-        //     header("location: produkt.php?del=tak");
-        //     exit();
-        // }
-        // if ($_POST['answer'] === 'NIE') {
-        //     header('location:produkt.php?del=nie');
-        //     exit();
-        // }
+    if (isset($_REQUEST['answer'])) {
+        if ($_REQUEST['answer'] === 'TAK') {
+            $query = 'DELETE from produkty WHERE id=' . $_REQUEST['id'];
+            mysqli_query($conn, $query);
+            header("location: produkt.php?info=del");
+            exit();
+        }
+        if ($_REQUEST['answer'] === 'NIE') {
+            header('location:produkt.php?info=nie');
+            exit();
+        }
     }
 }
 
+
 function DodajProdukt($conn)
 {
-    // <label for="category">Kategoria</label>
-    // <input type="text" name="category"><br>
+    $query = 'SELECT id, nazwa_kategorii FROM sklep';
+    $result = mysqli_query($conn, $query);
     // <label for="photo">Zdjęcie</label>
     // <input type="text" name="photo"><br>
 
     echo $_REQUEST['chose'];
-    echo '<form class="add" method="get">
+    echo '<form class="add" method="post">
         <label for="title">Tytuł</label>
         <input required type="text" name="title" /><br>
         <label for="desc">Opis</label>
@@ -92,13 +143,17 @@ function DodajProdukt($conn)
         
         <label for="size">Gabaryt</label>
         <input required type="text" name="size"><br>
-        
-        <input type="submit" name="add" value="Dodaj"></form>';
-    var_dump($_REQUEST);
-    if (isset($_GET['add'])) {
-        echo 'jest';
-        // $query = 'INSERT INTO produkty (tytul, opis, cena_netto, vat, ilosc_sztuk, gabaryt) VALUES ("' . $_GET['title'] . '","' . $_GET['desc'] . '","' . $_GET['value_net'] . '","' . $_GET['value_vat'] . '","' . $_GET['number'] . '","' . $_GET['size'] . '")';
-        // mysqli_query($conn, $query);
+
+        <label for="category">Kategoria</label><br>';
+    foreach ($result as $value) {
+        echo '<input  required type="radio" id="category" value="' . $value['id'] . '">' . $value['nazwa_kategorii'] . '</input><br>';
+    }
+    echo '<input type="submit" name="add" value="Dodaj">
+    <a href="produkt.php"> Back</a>
+    </form>';
+    if (isset($_REQUEST['add'])) {
+        $query = 'INSERT INTO produkty (tytul, opis, cena_netto, vat, ilosc_sztuk, kategoria, gabaryt) VALUES ("' . $_POST['title'] . '","' . $_POST['desc'] . '","' . $_POST['value_net'] . '","' . $_POST['value_vat'] . '","' . $_POST['number'] . '", "' . $_POST['category'] . '", "' . $_POST['size'] . '")';
+        mysqli_query($conn, $query);
+        header('Location: produkt.php?info=add');
     }
 }
-?>
