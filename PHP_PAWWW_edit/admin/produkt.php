@@ -61,27 +61,32 @@ function ShowAll($conn)
 function EdytujProdukt($conn)
 {
     $query = 'SELECT id, tytul, opis, cena_netto, vat, ilosc_sztuk, kategoria, gabaryt FROM produkty WHERE id="' . $_REQUEST['item_id'] . '"';
-    $query2 = 'SELECT id, nazwa_kategorii FROM sklep';
-    $result2 = mysqli_query($conn, $query2);
     $result = mysqli_query($conn, $query);
     $item = mysqli_fetch_array($result);
+    $query2 = 'SELECT id, nazwa_kategorii FROM sklep ';
+    $result2 = mysqli_query($conn, $query2);
+    $item2 = mysqli_fetch_array($result2);
+    $query4 = $query2 = 'SELECT nazwa_kategorii FROM sklep WHERE id=' . $item['kategoria'] . '';
+    $item3 = mysqli_fetch_array(mysqli_query($conn, $query4));
     echo '<form class="change" method="post">
-    <label for="title">Tytuł</label>
-    <input required type="text" id="title" value="' . $item['tytul'] . '" /><br>
-    <label for="desc">Opis</label>
+    <label >Tytuł</label>
+    <input required type="text" name="title" value="' . $item['tytul'] . '" /><br>
+    <label >Opis</label>
     <input required type="text" name="desc" value="' . $item['opis'] . '"/> <br>
-    <label for="value_net">Cena NETTO</label>
-    <input required type="text" id="value_net" value="' . $item['cena_netto'] . '"><br>
-    <label for="value_vat">VAT</label>
-    <input required type="text" id="value_vat" value="' . $item['vat'] . '"><br>
-    <label for="number">Ilość sztuk</label>
-    <input required type="text" id="number" value="' . $item['ilosc_sztuk'] . '"><br>
+    <label >Cena NETTO</label>
+    <input required type="number" step="0.01" name="value_net" value="' . $item['cena_netto'] . '"><br>
+    <label >VAT</label>
+    <input required type="number"step="0.01" name="value_vat" value="' . $item['vat'] . '"> %<br>
+    <label >Ilość sztuk</label>
+    <input required type="number" name="number" value="' . $item['ilosc_sztuk'] . '"><br>
     
-    <label for="size">Gabaryt</label>
-    <input required type="text" id="size" value="' . $item['gabaryt'] . '"><br>
-    <label for="category">Kategoria</label><br>';
+    <label >Gabaryt wcześniej: ' . $item['gabaryt'] . '</label><br>
+    <input type="radio" name="size" value="mały"/> Mały<br>
+    <input type="radio" name="size" value="średni"/>Średni<br>
+    <input type="radio" name="size" value="duży"/>Duży<br>
+    <label>Kategoria wcześniejsza: ' . $item3['nazwa_kategorii'] . '</label><br>';
     foreach ($result2 as $value) {
-        echo '<input required type="radio" id="category" value="' . $value['id'] . '">' . $value['nazwa_kategorii'] . '</input><br>';
+        echo '<input required type="radio" name="category" value="' . $value['id'] . '">' . $value['nazwa_kategorii'] . '</input><br>';
     }
     echo '<input type="submit" name="update" value="Zapisz">
     <input type="hidden" name="chose" value="Edytuj">
@@ -90,8 +95,16 @@ function EdytujProdukt($conn)
     <a href="produkt.php"> Back</a>
     </form>';
     if (isset($_REQUEST['update'])) {
-        $query = 'UPDATE produkty SET tytul="' . $_REQUEST['title'] . '", opis="' . $_REQUEST['desc'] . '", cena_netto="' . $_REQUEST['value_net'] . '", vat="' . $_REQUEST['value_vat'] . '", ilosc_sztuk="' . $_REQUEST['number'] . '",  kategoria="' . $_REQUEST['category'] . '", gabaryt="' . $_REQUEST['size'] . '" WHERE id="' . $_REQUEST['id'] . '"';
-        mysqli_query($conn, $query);
+        $query3 = 'UPDATE produkty SET
+        tytul="' . $_REQUEST['title'] . '",
+        opis="' . $_REQUEST['desc'] . '",
+        cena_netto=' . $_REQUEST['value_net'] . ',
+        vat="' . $_REQUEST['value_vat'] . '",
+        ilosc_sztuk=' . $_REQUEST['number'] . ',
+        kategoria=' . $_REQUEST['category'] . ',
+        gabaryt="' . $_REQUEST['size'] . '"
+         WHERE id=' . $_REQUEST['id'] . ' LIMIT 1';
+        mysqli_query($conn, $query3);
         header('Location: produkt.php?info=update');
     }
 }
