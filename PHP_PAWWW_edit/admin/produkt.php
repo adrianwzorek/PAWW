@@ -60,15 +60,15 @@ function ShowAll($conn)
 }
 function EdytujProdukt($conn)
 {
-    $query = 'SELECT id, tytul, opis, cena_netto, vat, ilosc_sztuk, kategoria, gabaryt FROM produkty WHERE id="' . $_REQUEST['item_id'] . '"';
+    $query = 'SELECT id, tytul, opis, data_wygasniecia, cena_netto, vat, ilosc_sztuk, kategoria, gabaryt FROM produkty WHERE id="' . $_REQUEST['item_id'] . '"';
     $result = mysqli_query($conn, $query);
     $item = mysqli_fetch_array($result);
-    $query2 = 'SELECT id, nazwa_kategorii FROM sklep ';
+    $query2 = 'SELECT id, nazwa_kategorii, matka FROM sklep ';
     $result2 = mysqli_query($conn, $query2);
-    $item2 = mysqli_fetch_array($result2);
-    $query4 = $query2 = 'SELECT nazwa_kategorii FROM sklep WHERE id=' . $item['kategoria'] . '';
-    $item3 = mysqli_fetch_array(mysqli_query($conn, $query4));
-    echo '<form class="change" method="post">
+    $query3 = 'SELECT nazwa_kategorii FROM sklep WHERE id="' . $item['kategoria'] . '"';
+    $result3 = mysqli_query($conn, $query3);
+    $item3 = mysqli_fetch_array($result3);
+    echo '<form class="change" method="post" enctype="multipart/form-data">
     <label >Tytuł</label>
     <input required type="text" name="title" value="' . $item['tytul'] . '" /><br>
     <label >Opis</label>
@@ -79,35 +79,44 @@ function EdytujProdukt($conn)
     <input required type="number"step="0.01" name="value_vat" value="' . $item['vat'] . '"> %<br>
     <label >Ilość sztuk</label>
     <input required type="number" name="number" value="' . $item['ilosc_sztuk'] . '"><br>
-    
+    <label>Do kiedy aktywna</label>
+    <input required type="date" name="date_to" value="' . $item['data_wygasniecia'] . '"><br>
+    <input type="file" name="file" accept=".jpg, .jpeg, .png, .svg" value=""><br>
     <label >Gabaryt wcześniej: ' . $item['gabaryt'] . '</label><br>
-    <input type="radio" name="size" value="mały"/> Mały<br>
-    <input type="radio" name="size" value="średni"/>Średni<br>
-    <input type="radio" name="size" value="duży"/>Duży<br>
+    <input required type="radio" name="size" value="Mały"/> Mały<br>
+    <input required type="radio" name="size" value="Średni"/>Średni<br>
+    <input required type="radio" name="size" value="Duży"/>Duży<br>
     <label>Kategoria wcześniejsza: ' . $item3['nazwa_kategorii'] . '</label><br>';
     foreach ($result2 as $value) {
         echo '<input required type="radio" name="category" value="' . $value['id'] . '">' . $value['nazwa_kategorii'] . '</input><br>';
     }
     echo '<input type="submit" name="update" value="Zapisz">
+    <input type="hidden" name="date_mod" value=' . date("Y-m-d") . '>
     <input type="hidden" name="chose" value="Edytuj">
     <input type="hidden" name="id" value="' . $item['id'] . '">
     <br>
     <a href="produkt.php"> Back</a>
     </form>';
     if (isset($_REQUEST['update'])) {
+        $file = file_get_contents($_FILES['file']['tmp_name']);
+
+
         $query3 = 'UPDATE produkty SET
         tytul="' . $_REQUEST['title'] . '",
         opis="' . $_REQUEST['desc'] . '",
+        data_modyfikacji="' . $_POST['date_mod'] . '",
+        data_wygasniecia="' . $_POST['date_to'] . '",
         cena_netto=' . $_REQUEST['value_net'] . ',
         vat="' . $_REQUEST['value_vat'] . '",
         ilosc_sztuk=' . $_REQUEST['number'] . ',
         kategoria=' . $_REQUEST['category'] . ',
         gabaryt="' . $_REQUEST['size'] . '"
-         WHERE id=' . $_REQUEST['id'] . ' LIMIT 1';
+        WHERE id=' . $_REQUEST['id'] . ' LIMIT 1';
         mysqli_query($conn, $query3);
         header('Location: produkt.php?info=update');
     }
 }
+// zdjecie = "' . addslashes(file_get_contents($_FILES['file']['file_name'])) . '"
 
 function UsunProdukt($conn)
 {
@@ -141,31 +150,39 @@ function DodajProdukt($conn)
     // <label for="photo">Zdjęcie</label>
     // <input type="text" name="photo"><br>
 
-    echo $_REQUEST['chose'];
     echo '<form class="add" method="post">
-        <label for="title">Tytuł</label>
+        <label >Tytuł</label>
         <input required type="text" name="title" /><br>
-        <label for="desc">Opis</label>
+        <label >Opis</label>
         <input required type="text" name="desc" /> <br>
-        <label for="value_net">Cena NETTO</label>
-        <input required type="text" name="value_net"><br>
-        <label for="value_vat">VAT</label>
-        <input required type="text" name="value_vat"><br>
-        <label for="number">Ilość sztuk</label>
+        <label >Cena NETTO</label>
+        <input required type="number" step="0.01" name="value_net">zł<br>
+        <label >VAT</label>
+        <input required type="number" step="0.01" name="value_vat">%<br>
+        <label>Ilość sztuk</label>
         <input required type="text" name="number"><br>
+        <label>Do kiedy aktywna</label>
+        <input required type="date" name="date_to"><br>
         
-        <label for="size">Gabaryt</label>
-        <input required type="text" name="size"><br>
+        <label>Gabaryt</label><br>
+    <input required type="radio" name="size" value="mały"/> Mały<br>
+    <input required type="radio" name="size" value="średni"/>Średni<br>
+    <input required type="radio" name="size" value="duży"/>Duży<br>
 
-        <label for="category">Kategoria</label><br>';
+        <label>Kategoria</label><br>';
     foreach ($result as $value) {
-        echo '<input  required type="radio" id="category" value="' . $value['id'] . '">' . $value['nazwa_kategorii'] . '</input><br>';
+        echo '<input  required type="radio" name="category" value="' . $value['id'] . '">' . $value['nazwa_kategorii'] . '</input><br>';
     }
     echo '<input type="submit" name="add" value="Dodaj">
+    <input type="hidden" name="date_add" value=' . date("Y-m-d") . '>
     <a href="produkt.php"> Back</a>
     </form>';
     if (isset($_REQUEST['add'])) {
-        $query = 'INSERT INTO produkty (tytul, opis, cena_netto, vat, ilosc_sztuk, kategoria, gabaryt) VALUES ("' . $_POST['title'] . '","' . $_POST['desc'] . '","' . $_POST['value_net'] . '","' . $_POST['value_vat'] . '","' . $_POST['number'] . '", "' . $_POST['category'] . '", "' . $_POST['size'] . '")';
+        $query = 'INSERT INTO produkty
+        (tytul, opis, data_utworzenia, data_wygasniecia, cena_netto, vat, ilosc_sztuk, kategoria, gabaryt)VALUES 
+        ("' . $_POST['title'] . '","' . $_POST['desc'] . '", "' . $_POST['date_add'] . '" , "' . $_POST['date_to'] . '" ,"' . $_POST['value_net'] . '",
+        "' . $_POST['value_vat'] . '","' . $_POST['number'] . '", "' . $_POST['category'] . '",
+        "' . $_POST['size'] . '")';
         mysqli_query($conn, $query);
         header('Location: produkt.php?info=add');
     }
