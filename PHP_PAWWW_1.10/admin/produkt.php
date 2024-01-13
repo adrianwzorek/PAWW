@@ -2,103 +2,220 @@
 error_reporting(E_ALL);
 include '../cfg.php';
 session_start();
+if ($_SESSION['login'] == $login && $_SESSION['haslo'] == $haslo) {
 
-if (empty($_REQUEST)) {
-    return ShowAll($conn);
+    if (empty($_REQUEST)) {
+        CheckItem($conn);
+        ShowAll($conn);
+    }
+    if (isset($_REQUEST['chose'])) {
+        if ($_REQUEST['chose'] === 'Dodaj') {
+            return DodajProdukt($conn);
+        }
+        if ($_REQUEST['chose'] === 'Usun') {
+            return UsunProdukt($conn);
+        }
+        if ($_REQUEST['chose'] === 'Edytuj') {
+            return EdytujProdukt($conn);
+        }
+        if ($_REQUEST['chose'] === 'Help') {
+            return CheckItem($conn);
+        }
+    }
+    if (isset($_REQUEST['info'])) {
+        CheckItem($conn);
+        if ($_REQUEST['info'] == 'add') {
+            echo '<div>Udało się dodać produkt</div>';
+            ShowAll($conn);
+            exit();
+        }
+        if ($_REQUEST['info'] === 'del') {
+            echo '<div>Udało się usunąć produkt</div>';
+            ShowAll($conn);
+            exit();
+        }
+        if ($_REQUEST['info'] === 'nie') {
+            echo '<div>Nie dokonano zmiany</div>';
+            ShowAll($conn);
+            exit();
+        }
+        if ($_REQUEST['info'] === 'update') {
+            echo '<div>Zmieniono</div>';
+            ShowAll($conn);
+            exit();
+        } else {
+            echo 'coś jest nie tak';
+        }
+    }
+} else {
+    header("Location: admin.php");
 }
-if (isset($_REQUEST['chose'])) {
-    if ($_REQUEST['chose'] === 'Dodaj') {
-        return DodajProdukt($conn);
-    }
-    if ($_REQUEST['chose'] === 'Usun') {
-        return UsunProdukt($conn);
-    }
-    if ($_REQUEST['chose'] === 'Edytuj') {
-        return EdytujProdukt($conn);
+
+function CheckItem($conn)
+{
+    $query = 'SELECT * FROM produkty';
+    $result = mysqli_query($conn, $query);
+    foreach ($result as $value) {
+        if ($value['ilosc_sztuk'] === '0' | $value['data_wygasniecia'] === date('Y-m-d')) {
+            $query = 'UPDATE produkty SET status = "0" WHERE id=' . $value['id'];
+            mysqli_query($conn, $query);
+        }
     }
 }
-
-?>
-
-
-<?php
-
 
 function ShowAll($conn)
 {
     $query = 'SELECT * FROM produkty';
     $result = mysqli_query($conn, $query);
+    echo '<form class="show" method="post">';
     foreach ($result as  $value) {
-        echo '<form class="show" method="post"> 
-        id: ' . $value['id'] . ' nazwa: ' . $value['tytul'] . ' -> ilość sztuk: ' . $value['ilosc_sztuk'] . '
-        <input type="hidden" name="item_id" value=' . $value['id'] . ' />
-        <input type="hidden" name="item_name" value=' . $value['tytul'] . ' />
-        <input type="submit" name="chose" value="Edytuj" />
-        <input type="submit" name="chose" value="Usun" /><br>
-        <input type="submit" name="chose" value="Dodaj" />
-    </form>';
+        if ($value['ilosc_sztuk'] == "0" | $value['data_wygasniecia'] === date('Y-m-d')) {
+            echo '<div class="item">Produkt: ' . $value['tytul'] . ' jest już niedostępny</div>
+            <input type="hidden" name="item_id" value=' . $value['id'] . ' />
+            <input type="hidden" name="item_name" value=' . $value['tytul'] . ' />
+            <input type="submit" name="chose" value="Usun"><br>';
+        } else {
+
+            echo '<div class="item">id: ' . $value['id'] . ' nazwa: ' . $value['tytul'] . ' -> ilość sztuk: ' . $value['ilosc_sztuk'] . '</div>
+            <input type="hidden" name="item_id" value=' . $value['id'] . ' />
+            <input type="hidden" name="item_name" value=' . $value['tytul'] . ' />
+            <input type="submit" name="chose" value="Edytuj" />
+            <input type="submit" name="chose" value="Usun" /><br>';
+        }
     }
+    echo '<br><input type="submit" name="chose" value="Dodaj" />
+    </form>
+    <a href="podstrony.php"> Zarządzaj Podstronami</a><br>
+    <a href="sklep.php"> Zarządzaj Sklepem</a><br>
+    <a href="logout.php"> Wyloguj</a>
+    ';
 }
 function EdytujProdukt($conn)
 {
-    echo 'edytuj';
-}
+    $query = 'SELECT id, tytul, opis, data_wygasniecia, cena_netto, vat, ilosc_sztuk, kategoria, gabaryt FROM produkty WHERE id="' . $_REQUEST['item_id'] . '"';
+    $result = mysqli_query($conn, $query);
+    $item = mysqli_fetch_array($result);
+    $query2 = 'SELECT id, nazwa_kategorii, matka FROM sklep ';
+    $result2 = mysqli_query($conn, $query2);
+    $query3 = 'SELECT nazwa_kategorii FROM sklep WHERE id="' . $item['kategoria'] . '"';
+    $result3 = mysqli_query($conn, $query3);
+    $item3 = mysqli_fetch_array($result3);
+    echo '<form class="change" method="post" enctype="multipart/form-data">
+    <label >Tytuł</label>
+    <input required type="text" name="title" value="' . $item['tytul'] . '" /><br>
+    <label >Opis</label>
+    <input required type="text" name="desc" value="' . $item['opis'] . '"/> <br>
+    <label >Cena NETTO</label>
+    <input required type="number" step="0.01" name="value_net" value="' . $item['cena_netto'] . '"><br>
+    <label >VAT</label>
+    <input required type="number"step="0.01" name="value_vat" value="' . $item['vat'] . '"> %<br>
+    <label >Ilość sztuk</label>
+    <input required type="number" name="number" value="' . $item['ilosc_sztuk'] . '"><br>
+    <label>Do kiedy aktywna</label>
+    <input required type="date" name="date_to" value="' . $item['data_wygasniecia'] . '"><br>
 
-function UsunProdukt($conn)
-{
-    $id = mysqli_real_escape_string($conn, $_POST['item_id']);
-    $name = mysqli_real_escape_string($conn, $_POST['item_name']);
-    echo 'Czy na pewno chcesz usunąć ' . $name . '?
-        <form class="question" method="get">
-        <input type="hidden" name="item_id" value=' . $id . ' />
-        <input type="submit" name="yes" value="TAK" />
-        <input type="submit" name="no" value="NIE" />
-        </form>';
+    <label >Gabaryt wcześniej: ' . $item['gabaryt'] . '</label><br>
+    <input required type="radio" name="size" value="Mały"/> Mały<br>
+    <input required type="radio" name="size" value="Średni"/>Średni<br>
+    <input required type="radio" name="size" value="Duży"/>Duży<br>
+    <label>Kategoria wcześniejsza: ' . $item3['nazwa_kategorii'] . '</label><br>';
+    foreach ($result2 as $value) {
+        echo '<input required type="radio" name="category" value="' . $value['id'] . '">' . $value['nazwa_kategorii'] . '</input><br>';
+    }
+    echo '<input type="submit" name="update" value="Zapisz">
+    <input type="hidden" name="date_mod" value=' . date("Y-m-d") . '>
+    <input type="hidden" name="chose" value="Edytuj">
+    <input type="hidden" name="id" value="' . $item['id'] . '">
+    <br>
+    <a href="produkt.php"> Back</a>
+    </form>';
+    if (isset($_REQUEST['update'])) {
+        $file = file_get_contents($_FILES['file']['tmp_name']);
 
-    if (isset($_REQUEST['yes'])) {
-        echo 'jest';
-        // if ($_POST['answer'] === 'TAK') {
-        //     $query = 'DELETE from produkty WHERE id=' . $id;
-        //     mysqli_query($conn, $query);
-        //     header("location: produkt.php?del=tak");
-        //     exit();
-        // }
-        // if ($_POST['answer'] === 'NIE') {
-        //     header('location:produkt.php?del=nie');
-        //     exit();
-        // }
+
+        $query3 = 'UPDATE produkty SET
+        tytul="' . $_REQUEST['title'] . '",
+        opis="' . $_REQUEST['desc'] . '",
+        data_modyfikacji="' . $_POST['date_mod'] . '",
+        data_wygasniecia="' . $_POST['date_to'] . '",
+        cena_netto=' . $_REQUEST['value_net'] . ',
+        vat="' . $_REQUEST['value_vat'] . '",
+        ilosc_sztuk=' . $_REQUEST['number'] . ',
+        kategoria=' . $_REQUEST['category'] . ',
+        gabaryt="' . $_REQUEST['size'] . '"
+        WHERE id=' . $_REQUEST['id'] . ' LIMIT 1';
+        mysqli_query($conn, $query3);
+        header('Location: produkt.php?info=update');
     }
 }
+// zdjecie = "' . addslashes(file_get_contents($_FILES['file']['file_name'])) . '"
+// <input type="file" name="file" accept=".jpg, .jpeg, .png, .svg" value=""><br>
+function UsunProdukt($conn)
+{
+    echo '<form method="post" action=""> Czy na pewno chcesz usunąć  ' . $_REQUEST['item_name'] . '  ?
+        <input type="hidden" name="id" value="' . $_REQUEST['item_id'] . '">
+        <input type="hidden" name="chose" value="Usun">
+        <input type="submit" name="answer" value="TAK">
+        <input type="submit" name="answer" value="NIE">
+        </form>
+        <a href="produkt.php"> Back</a> ';
+
+    if (isset($_REQUEST['answer'])) {
+        if ($_REQUEST['answer'] === 'TAK') {
+            $query = 'DELETE from produkty WHERE id=' . $_REQUEST['id'];
+            mysqli_query($conn, $query);
+            header("location: produkt.php?info=del");
+            exit();
+        }
+        if ($_REQUEST['answer'] === 'NIE') {
+            header('location:produkt.php?info=nie');
+            exit();
+        }
+    }
+}
+
 
 function DodajProdukt($conn)
 {
-    // <label for="category">Kategoria</label>
-    // <input type="text" name="category"><br>
+    $query = 'SELECT id, nazwa_kategorii FROM sklep';
+    $result = mysqli_query($conn, $query);
     // <label for="photo">Zdjęcie</label>
     // <input type="text" name="photo"><br>
 
-    echo $_REQUEST['chose'];
-    echo '<form class="add" method="get">
-        <label for="title">Tytuł</label>
+    echo '<form class="add" method="post">
+        <label >Tytuł</label>
         <input required type="text" name="title" /><br>
-        <label for="desc">Opis</label>
+        <label >Opis</label>
         <input required type="text" name="desc" /> <br>
-        <label for="value_net">Cena NETTO</label>
-        <input required type="text" name="value_net"><br>
-        <label for="value_vat">VAT</label>
-        <input required type="text" name="value_vat"><br>
-        <label for="number">Ilość sztuk</label>
+        <label >Cena NETTO</label>
+        <input required type="number" step="0.01" name="value_net">zł<br>
+        <label >VAT</label>
+        <input required type="number" step="0.01" name="value_vat">%<br>
+        <label>Ilość sztuk</label>
         <input required type="text" name="number"><br>
-        
-        <label for="size">Gabaryt</label>
-        <input required type="text" name="size"><br>
-        
-        <input type="submit" name="add" value="Dodaj"></form>';
-    var_dump($_REQUEST);
-    if (isset($_GET['add'])) {
-        echo 'jest';
-        // $query = 'INSERT INTO produkty (tytul, opis, cena_netto, vat, ilosc_sztuk, gabaryt) VALUES ("' . $_GET['title'] . '","' . $_GET['desc'] . '","' . $_GET['value_net'] . '","' . $_GET['value_vat'] . '","' . $_GET['number'] . '","' . $_GET['size'] . '")';
-        // mysqli_query($conn, $query);
+        <label>Do kiedy aktywna</label>
+        <input required type="date" name="date_to"><br>  
+        <label>Gabaryt</label><br>
+        <input type="hidden" name="chose" value="Dodaj">
+    <input required type="radio" name="size" value="mały"/> Mały<br>
+    <input required type="radio" name="size" value="średni"/>Średni<br>
+    <input required type="radio" name="size" value="duży"/>Duży<br>
+
+        <label>Kategoria</label><br>';
+    foreach ($result as $value) {
+        echo '<input  required type="radio" name="category" value="' . $value['id'] . '">' . $value['nazwa_kategorii'] . '</input><br>';
+    }
+    echo '<input type="submit" name="add" value="Dodaj">
+    <input type="hidden" name="date_add" value=' . date("Y-m-d") . '>
+    <a href="produkt.php"> Back</a>
+    </form>';
+    if (isset($_REQUEST['add'])) {
+        $query = 'INSERT INTO produkty
+        (tytul, opis, data_utworzenia, data_wygasniecia, cena_netto, vat, ilosc_sztuk, kategoria, gabaryt)VALUES 
+        ("' . $_POST['title'] . '","' . $_POST['desc'] . '", "' . $_POST['date_add'] . '" , "' . $_POST['date_to'] . '" ,"' . $_POST['value_net'] . '",
+        "' . $_POST['value_vat'] . '","' . $_POST['number'] . '", "' . $_POST['category'] . '",
+        "' . $_POST['size'] . '")';
+        mysqli_query($conn, $query);
+        header('Location: produkt.php?info=add');
     }
 }
-?>

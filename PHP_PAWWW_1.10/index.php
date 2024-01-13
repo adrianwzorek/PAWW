@@ -26,7 +26,6 @@ if ($_GET['id']  == 'admin') $strona = 'admin.php';
   <link rel="website icon" href="./css/Pictures/harry-potter-zoom-background-ey1wy31b6pclofru.webp" />
   <script src="./js/jquery-3.7.1.min.js"></script>
   <script src="./js/script.js"></script>
-  <!-- <link rel="stylesheet" href="./css/style.css"> -->
   <link rel="stylesheet" type="text/css" href="./css/index.css" />
 </head>
 
@@ -36,6 +35,8 @@ if ($_GET['id']  == 'admin') $strona = 'admin.php';
   echo showTab($strona, $conn);
   ?>
   <footer>
+    <a class='panel' href="./admin/admin.php" target="_blank">Admin</a>
+    <a class='panel' href="./shop.php">Zajrzyj na sklep</a>
     Nacisnij
     <a href="./index.php?id=mail" class="mail">&#10170;</a> żeby wysłać do mnie
     maila
