@@ -44,9 +44,8 @@ session_start();
         echo '<form action="podstrony.php" method="get">
         <input type="submit" name="dodaj" value="dodaj"><br>
         </form>
-        <a href="sklep.php">
-        Zarządzaj sklepem
-        </a><br>
+        <a href="sklep.php">Zarządzaj Sklepem</a><br>
+        <a href="produkt.php"> Zarządzaj Produktem</a><br>
         <a href="logout.php"> Wyloguj</a>';
     } else {
         header('location: admin.php');

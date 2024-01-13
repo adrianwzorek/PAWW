@@ -2,61 +2,93 @@
 error_reporting(E_ALL);
 include '../cfg.php';
 session_start();
+if ($_SESSION['login'] == $login && $_SESSION['haslo'] == $haslo) {
 
-if (empty($_REQUEST)) {
-    ShowAll($conn);
-}
-if (isset($_REQUEST['chose'])) {
-    if ($_REQUEST['chose'] === 'Dodaj') {
-        return DodajProdukt($conn);
-    }
-    if ($_REQUEST['chose'] === 'Usun') {
-        return UsunProdukt($conn);
-    }
-    if ($_REQUEST['chose'] === 'Edytuj') {
-        return EdytujProdukt($conn);
-    }
-}
-if (isset($_REQUEST['info'])) {
-    if ($_REQUEST['info'] == 'add') {
-        echo '<div>Udało się dodać produkt</div>';
+    if (empty($_REQUEST)) {
+        CheckItem($conn);
         ShowAll($conn);
-        exit();
     }
-    if ($_REQUEST['info'] === 'del') {
-        echo '<div>Udało się usunąć produkt</div>';
-        ShowAll($conn);
-        exit();
+    if (isset($_REQUEST['chose'])) {
+        if ($_REQUEST['chose'] === 'Dodaj') {
+            return DodajProdukt($conn);
+        }
+        if ($_REQUEST['chose'] === 'Usun') {
+            return UsunProdukt($conn);
+        }
+        if ($_REQUEST['chose'] === 'Edytuj') {
+            return EdytujProdukt($conn);
+        }
+        if ($_REQUEST['chose'] === 'Help') {
+            return CheckItem($conn);
+        }
     }
-    if ($_REQUEST['info'] === 'nie') {
-        echo '<div>Nie dokonano zmiany</div>';
-        ShowAll($conn);
-        exit();
+    if (isset($_REQUEST['info'])) {
+        CheckItem($conn);
+        if ($_REQUEST['info'] == 'add') {
+            echo '<div>Udało się dodać produkt</div>';
+            ShowAll($conn);
+            exit();
+        }
+        if ($_REQUEST['info'] === 'del') {
+            echo '<div>Udało się usunąć produkt</div>';
+            ShowAll($conn);
+            exit();
+        }
+        if ($_REQUEST['info'] === 'nie') {
+            echo '<div>Nie dokonano zmiany</div>';
+            ShowAll($conn);
+            exit();
+        }
+        if ($_REQUEST['info'] === 'update') {
+            echo '<div>Zmieniono</div>';
+            ShowAll($conn);
+            exit();
+        } else {
+            echo 'coś jest nie tak';
+        }
     }
-    if ($_REQUEST['info'] === 'update') {
-        echo '<div>Zmieniono</div>';
-        ShowAll($conn);
-        exit();
-    } else {
-        echo 'coś jest nie tak';
-    }
+} else {
+    header("Location: admin.php");
 }
 
+function CheckItem($conn)
+{
+    $query = 'SELECT * FROM produkty';
+    $result = mysqli_query($conn, $query);
+    foreach ($result as $value) {
+        if ($value['ilosc_sztuk'] === '0' | $value['data_wygasniecia'] === date('Y-m-d')) {
+            $query = 'UPDATE produkty SET status = "0" WHERE id=' . $value['id'];
+            mysqli_query($conn, $query);
+        }
+    }
+}
 
 function ShowAll($conn)
 {
     $query = 'SELECT * FROM produkty';
     $result = mysqli_query($conn, $query);
+    echo '<form class="show" method="post">';
     foreach ($result as  $value) {
-        echo '<form class="show" method="post"> 
-        id: ' . $value['id'] . ' nazwa: ' . $value['tytul'] . ' -> ilość sztuk: ' . $value['ilosc_sztuk'] . '
-        <input type="hidden" name="item_id" value=' . $value['id'] . ' />
-        <input type="hidden" name="item_name" value=' . $value['tytul'] . ' />
-        <input type="submit" name="chose" value="Edytuj" />
-        <input type="submit" name="chose" value="Usun" /></form>';
+        if ($value['ilosc_sztuk'] == "0" | $value['data_wygasniecia'] === date('Y-m-d')) {
+            echo '<div class="item">Produkt: ' . $value['tytul'] . ' jest już niedostępny</div>
+            <input type="hidden" name="item_id" value=' . $value['id'] . ' />
+            <input type="hidden" name="item_name" value=' . $value['tytul'] . ' />
+            <input type="submit" name="chose" value="Usun"><br>';
+        } else {
+
+            echo '<div class="item">id: ' . $value['id'] . ' nazwa: ' . $value['tytul'] . ' -> ilość sztuk: ' . $value['ilosc_sztuk'] . '</div>
+            <input type="hidden" name="item_id" value=' . $value['id'] . ' />
+            <input type="hidden" name="item_name" value=' . $value['tytul'] . ' />
+            <input type="submit" name="chose" value="Edytuj" />
+            <input type="submit" name="chose" value="Usun" /><br>';
+        }
     }
-    echo '<form><input type="submit" name="chose" value="Dodaj" />
-    </form>';
+    echo '<br><input type="submit" name="chose" value="Dodaj" />
+    </form>
+    <a href="podstrony.php"> Zarządzaj Podstronami</a><br>
+    <a href="sklep.php"> Zarządzaj Sklepem</a><br>
+    <a href="logout.php"> Wyloguj</a>
+    ';
 }
 function EdytujProdukt($conn)
 {
@@ -81,7 +113,7 @@ function EdytujProdukt($conn)
     <input required type="number" name="number" value="' . $item['ilosc_sztuk'] . '"><br>
     <label>Do kiedy aktywna</label>
     <input required type="date" name="date_to" value="' . $item['data_wygasniecia'] . '"><br>
-    <input type="file" name="file" accept=".jpg, .jpeg, .png, .svg" value=""><br>
+
     <label >Gabaryt wcześniej: ' . $item['gabaryt'] . '</label><br>
     <input required type="radio" name="size" value="Mały"/> Mały<br>
     <input required type="radio" name="size" value="Średni"/>Średni<br>
@@ -117,7 +149,7 @@ function EdytujProdukt($conn)
     }
 }
 // zdjecie = "' . addslashes(file_get_contents($_FILES['file']['file_name'])) . '"
-
+// <input type="file" name="file" accept=".jpg, .jpeg, .png, .svg" value=""><br>
 function UsunProdukt($conn)
 {
     echo '<form method="post" action=""> Czy na pewno chcesz usunąć  ' . $_REQUEST['item_name'] . '  ?
@@ -162,9 +194,9 @@ function DodajProdukt($conn)
         <label>Ilość sztuk</label>
         <input required type="text" name="number"><br>
         <label>Do kiedy aktywna</label>
-        <input required type="date" name="date_to"><br>
-        
+        <input required type="date" name="date_to"><br>  
         <label>Gabaryt</label><br>
+        <input type="hidden" name="chose" value="Dodaj">
     <input required type="radio" name="size" value="mały"/> Mały<br>
     <input required type="radio" name="size" value="średni"/>Średni<br>
     <input required type="radio" name="size" value="duży"/>Duży<br>
