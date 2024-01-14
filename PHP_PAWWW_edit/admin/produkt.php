@@ -130,7 +130,7 @@ function EdytujProdukt($conn)
     <a href="produkt.php"> Back</a>
     </form>';
     if (isset($_REQUEST['update'])) {
-        $file = file_get_contents($_FILES['file']['tmp_name']);
+        // $file = file_get_contents($_FILES['file']['tmp_name']);
 
 
         $query3 = 'UPDATE produkty SET

@@ -35,7 +35,7 @@ if ($_GET['id']  == 'admin') $strona = 'admin.php';
   echo showTab($strona, $conn);
   ?>
   <footer>
-    <a class='panel' href="./admin/admin.php" target="_blank">Admin</a>
+    <a class='panel' href="./admin/admin.php">Admin</a>
     <a class='panel' href="./shop.php">Zajrzyj na sklep</a>
     Nacisnij
     <a href="./index.php?id=mail" class="mail">&#10170;</a> żeby wysłać do mnie

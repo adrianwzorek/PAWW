@@ -8,7 +8,7 @@ FormularzLogowania($login, $haslo);
 // Tworze formularz Logowania
 function FormularzLogowania($login, $haslo)
 {
-  echo '<div class="container">
+  echo '<a href="../index.php">Cofnij</a><div class="container">
     <form action="admin.php" method="post">
       <div class="blok">
         <div class="top lg">Login</div>

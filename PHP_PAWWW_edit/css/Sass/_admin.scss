@@ -11,6 +11,15 @@
     font-size: 3em;
 }
 
+a {
+    position: absolute;
+    width: 2svw;
+    height: 2svh;
+    top: .5em;
+    left: .5em;
+    text-decoration: none;
+}
+
 .container {
     position: relative;
     display: flex;

@@ -1,9 +1,11 @@
+<?php
+include './shop/items.php';
+include './cfg.php';
+include './shop/add_to_basket.php';
+
+?>
 <!DOCTYPE html>
 <html lang="en">
-<?php
-include './cfg.php';
-session_start();
-?>
 
 <head>
     <meta charset="UTF-8">
@@ -12,10 +14,16 @@ session_start();
 </head>
 
 <body>
+    <a href="basket.php" class="basket">
+        <img src="./css/Pictures/shopping-basket.png" alt="basket" style="width: 50px;">
+    </a>
     <table>
         <tr>
             <th>
                 Nazwa
+            </th>
+            <th>
+                Opis
             </th>
             <th>
                 Cena
@@ -24,16 +32,26 @@ session_start();
                 ilość sztuk
             </th>
             <th>
-                data wygaśnięcia produktu
+                data wygaśnięcia
+            </th>
+            <th>
+                Akcje
             </th>
         </tr>
-        <tr>
-            <th>Jeden</th>
-            <th>Dwa</th>
-            <th>Trzy</th>
-            <th>Cztery</th>
-        </tr>
+        <?php
+        ShowItem($conn);
+        ?>
     </table>
+    <?php
+    if (isset($_REQUEST['sub'])) {
+        // funkcja dodawania do koszyka
+        Add($conn);
+    }
+    ?>
+    <form action="exit.php" method="post">
+        <input type="submit" value="Wyjscie">
+    </form>
+
 </body>
 
 </html>
