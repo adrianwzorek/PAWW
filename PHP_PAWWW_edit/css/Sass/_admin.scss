@@ -13,11 +13,13 @@
 
 a {
     position: absolute;
-    width: 2svw;
-    height: 2svh;
+    width: 5svw;
+    height: 5svh;
     top: .5em;
     left: .5em;
     text-decoration: none;
+    color: #FFF;
+    z-index: 1;
 }
 
 .container {
