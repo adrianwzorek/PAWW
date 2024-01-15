@@ -56,6 +56,7 @@ function Add($conn)
     $nr_3 = $nr . '_3';
     $nr_4 = $nr . '_4';
     $nr_5 = $nr . '_5';
+    $nr_6 = $nr . '_6';
 
     $_SESSION[$nr_0] = $nr;
     $_SESSION[$nr_1] = $prod[$nr]['id'];
@@ -63,6 +64,7 @@ function Add($conn)
     $_SESSION[$nr_3] = intval($prod[$nr]['number']);
     $_SESSION[$nr_4] = $prod[$nr]['cost'];
     $_SESSION[$nr_5] = $prod[$nr]['data'];
+    $_SESSION[$nr_6] = $item['ilosc_sztuk'];
     $_SESSION['id'] = $_REQUEST['id'];
     $_SESSION['suma'] += $cost;
     // wyświetl allert o dodaniu do koszyka
