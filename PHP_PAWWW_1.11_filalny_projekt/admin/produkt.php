@@ -59,11 +59,13 @@ function ShowImageById($conn)
     $query = 'SELECT zdjecie FROM produkty WHERE id="' . $_REQUEST['item_id'] . '"';
     $result = mysqli_query($conn, $query);
     $item = mysqli_fetch_array($result);
-    var_dump($_REQUEST);
-    if ($item) {
-        echo '<img src="data:image/jpeg;base64,' . base64_encode($item['zdjecie']) . '"/>';
-    } else {
-        echo 'Nie znaleziono zdjęcia dla produktu o id: ' . $_REQUEST['item_id'];
+    if ($item['zdjecie'] !== null) {
+        echo '<img src="data:image/jpeg;base64,' . base64_encode($item['zdjecie']) . '"/>
+        <br> <a href="produkt.php"> Back</a>';
+    }
+    if ($item['zdjecie'] === null) {
+        echo 'Nie znaleziono zdjęcia dla produktu o id: ' . $_REQUEST['item_id'] . '<br>
+        <a href="produkt.php"> Back</a> ';
     }
 }
 
@@ -100,7 +102,6 @@ function ShowAll($conn)
             <input type="submit" name="chose" value="Edytuj" />
             <input type="submit" name="chose" value="Usun" /><br>
             </form>';
-            var_dump($value['id']);
         }
     }
     echo '<br><form method="post"><input type="submit" name="chose" value="Dodaj" />
