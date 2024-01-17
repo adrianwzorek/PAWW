@@ -9,6 +9,9 @@ if ($_SESSION['login'] == $login && $_SESSION['haslo'] == $haslo) {
         ShowAll($conn);
     }
     if (isset($_REQUEST['chose'])) {
+        if ($_REQUEST['chose'] === 'Zdjecie') {
+            return ShowImageById($conn);
+        }
         if ($_REQUEST['chose'] === 'Dodaj') {
             return DodajProdukt($conn);
         }
@@ -51,6 +54,19 @@ if ($_SESSION['login'] == $login && $_SESSION['haslo'] == $haslo) {
     header("Location: admin.php");
 }
 
+function ShowImageById($conn)
+{
+    $query = 'SELECT zdjecie FROM produkty WHERE id="' . $_REQUEST['item_id'] . '"';
+    $result = mysqli_query($conn, $query);
+    $item = mysqli_fetch_array($result);
+    var_dump($_REQUEST);
+    if ($item) {
+        echo '<img src="data:image/jpeg;base64,' . base64_encode($item['zdjecie']) . '"/>';
+    } else {
+        echo 'Nie znaleziono zdjęcia dla produktu o id: ' . $_REQUEST['item_id'];
+    }
+}
+
 function CheckItem($conn)
 {
     $query = 'SELECT * FROM produkty';
@@ -67,23 +83,27 @@ function ShowAll($conn)
 {
     $query = 'SELECT * FROM produkty';
     $result = mysqli_query($conn, $query);
-    echo '<form class="show" method="post">';
-    foreach ($result as  $value) {
+    while ($value = mysqli_fetch_array($result)) {
         if ($value['ilosc_sztuk'] == "0" | $value['data_wygasniecia'] === date('Y-m-d')) {
+            echo '<form class="show" method="post" enctype="multipart/form-data">';
             echo '<div class="item">Produkt: ' . $value['tytul'] . ' jest już niedostępny</div>
             <input type="hidden" name="item_id" value=' . $value['id'] . ' />
             <input type="hidden" name="item_name" value=' . $value['tytul'] . ' />
             <input type="submit" name="chose" value="Usun"><br>';
         } else {
+            echo '<form class="show" method="post" enctype="multipart/form-data">';
 
             echo '<div class="item">id: ' . $value['id'] . ' nazwa: ' . $value['tytul'] . ' -> ilość sztuk: ' . $value['ilosc_sztuk'] . '</div>
             <input type="hidden" name="item_id" value=' . $value['id'] . ' />
             <input type="hidden" name="item_name" value=' . $value['tytul'] . ' />
+            <input type="submit" name="chose" value="Zdjecie" />
             <input type="submit" name="chose" value="Edytuj" />
-            <input type="submit" name="chose" value="Usun" /><br>';
+            <input type="submit" name="chose" value="Usun" /><br>
+            </form>';
+            var_dump($value['id']);
         }
     }
-    echo '<br><input type="submit" name="chose" value="Dodaj" />
+    echo '<br><form method="post"><input type="submit" name="chose" value="Dodaj" />
     </form>
     <a href="podstrony.php"> Zarządzaj Podstronami</a><br>
     <a href="sklep.php"> Zarządzaj Sklepem</a><br>
@@ -92,7 +112,7 @@ function ShowAll($conn)
 }
 function EdytujProdukt($conn)
 {
-    $query = 'SELECT id, tytul, opis, data_wygasniecia, cena_netto, vat, ilosc_sztuk, kategoria, gabaryt FROM produkty WHERE id="' . $_REQUEST['item_id'] . '"';
+    $query = 'SELECT id, tytul, opis, data_wygasniecia, cena_netto, vat, ilosc_sztuk, kategoria, gabaryt, zdjecie FROM produkty WHERE id="' . $_REQUEST['item_id'] . '"';
     $result = mysqli_query($conn, $query);
     $item = mysqli_fetch_array($result);
     $query2 = 'SELECT id, nazwa_kategorii, matka FROM sklep ';
@@ -106,13 +126,14 @@ function EdytujProdukt($conn)
     <label >Opis</label>
     <input required type="text" name="desc" value="' . $item['opis'] . '"/> <br>
     <label >Cena NETTO</label>
-    <input required type="number" step="0.01" name="value_net" value="' . $item['cena_netto'] . '"><br>
+    <input required type="number" step="0.01" name="value_net" value="' . $item['cena_netto'] . '">zł<br>
     <label >VAT</label>
     <input required type="number"step="0.01" name="value_vat" value="' . $item['vat'] . '"> %<br>
     <label >Ilość sztuk</label>
     <input required type="number" name="number" value="' . $item['ilosc_sztuk'] . '"><br>
     <label>Do kiedy aktywna</label>
     <input required type="date" name="date_to" value="' . $item['data_wygasniecia'] . '"><br>
+    <input type="file" name="file" accept=".jpg, .jpeg, .png, .svg" value=""><br>
 
     <label >Gabaryt wcześniej: ' . $item['gabaryt'] . '</label><br>
     <input required type="radio" name="size" value="Mały"/> Mały<br>
@@ -130,8 +151,6 @@ function EdytujProdukt($conn)
     <a href="produkt.php"> Back</a>
     </form>';
     if (isset($_REQUEST['update'])) {
-        // $file = file_get_contents($_FILES['file']['tmp_name']);
-
 
         $query3 = 'UPDATE produkty SET
         tytul="' . $_REQUEST['title'] . '",
@@ -142,14 +161,14 @@ function EdytujProdukt($conn)
         vat="' . $_REQUEST['value_vat'] . '",
         ilosc_sztuk=' . $_REQUEST['number'] . ',
         kategoria=' . $_REQUEST['category'] . ',
-        gabaryt="' . $_REQUEST['size'] . '"
+        gabaryt="' . $_REQUEST['size'] . '",
+        zdjecie="' . addslashes(file_get_contents($_FILES['file']['tmp_name'])) . '"
         WHERE id=' . $_REQUEST['id'] . ' LIMIT 1';
         mysqli_query($conn, $query3);
         header('Location: produkt.php?info=update');
     }
 }
 // zdjecie = "' . addslashes(file_get_contents($_FILES['file']['file_name'])) . '"
-// <input type="file" name="file" accept=".jpg, .jpeg, .png, .svg" value=""><br>
 function UsunProdukt($conn)
 {
     echo '<form method="post" action=""> Czy na pewno chcesz usunąć  ' . $_REQUEST['item_name'] . '  ?
@@ -179,10 +198,9 @@ function DodajProdukt($conn)
 {
     $query = 'SELECT id, nazwa_kategorii FROM sklep';
     $result = mysqli_query($conn, $query);
-    // <label for="photo">Zdjęcie</label>
-    // <input type="text" name="photo"><br>
 
-    echo '<form class="add" method="post">
+
+    echo '<form class="add" method="post" enctype="multipart/form-data">
         <label >Tytuł</label>
         <input required type="text" name="title" /><br>
         <label >Opis</label>
@@ -195,6 +213,7 @@ function DodajProdukt($conn)
         <input required type="text" name="number"><br>
         <label>Do kiedy aktywna</label>
         <input required type="date" name="date_to"><br>  
+        <input type="file" name="file" accept=".jpg, .jpeg, .png, .svg" value=""><br>
         <label>Gabaryt</label><br>
         <input type="hidden" name="chose" value="Dodaj">
     <input required type="radio" name="size" value="mały"/> Mały<br>
@@ -211,10 +230,10 @@ function DodajProdukt($conn)
     </form>';
     if (isset($_REQUEST['add'])) {
         $query = 'INSERT INTO produkty
-        (tytul, opis, data_utworzenia, data_wygasniecia, cena_netto, vat, ilosc_sztuk, kategoria, gabaryt)VALUES 
+        (tytul, opis, data_utworzenia, data_wygasniecia, cena_netto, vat, ilosc_sztuk, kategoria, gabaryt, zdjecie)VALUES 
         ("' . $_POST['title'] . '","' . $_POST['desc'] . '", "' . $_POST['date_add'] . '" , "' . $_POST['date_to'] . '" ,"' . $_POST['value_net'] . '",
         "' . $_POST['value_vat'] . '","' . $_POST['number'] . '", "' . $_POST['category'] . '",
-        "' . $_POST['size'] . '")';
+        "' . $_POST['size'] . '", "' . addslashes(file_get_contents($_FILES['file']['tmp_name'])) . '")';
         mysqli_query($conn, $query);
         header('Location: produkt.php?info=add');
     }

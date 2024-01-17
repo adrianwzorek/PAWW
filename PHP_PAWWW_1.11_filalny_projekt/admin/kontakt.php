@@ -7,16 +7,14 @@
     ?>
 
 </div>
-
+<a href="../admin/admin.php">Cofnij</a>
 <?php
 // Tworze formularz
 function PokazKontakt()
 {
     $kontakt = '<form  method="post">
-
-        <input required type="text" name="email" placeholder="E-Mail" class="write__place" />
+        <input required type="email" name="email" placeholder="E-Mail" class="write__place" />
     
-       
         <input required  type="text" name="title" placeholder="Nadaj Temat" class="write__place" />
     
     <br />
@@ -29,6 +27,7 @@ function PokazKontakt()
 
 function WyslijMailKontakt()
 {
+    ini_set('error_reporting', 'E_ALL & ~E_NOTICE & ~E_STRICT & ~E_DEPRECATED');
     // sprawdzam czy wymaganą metodą jest POST i czy naciśnięto przycisk 'submit'
     if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['wyslij'])) {
 
@@ -37,10 +36,9 @@ function WyslijMailKontakt()
         $text = $_POST['tekst'];
 
         mail($email, $tytul, $text);
-        echo 'Wiadomość została przesłana :D';
     }
     if (isset($_POST['email'])) {
-        echo 'Działa';
+        echo '<span style="position: absolute; font-size: 2.5em; bottom:-2em;">Wiadomość została przesłana</span>';
     }
 }
 ?>

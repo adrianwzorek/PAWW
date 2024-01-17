@@ -9,6 +9,7 @@ FormularzLogowania($login, $haslo);
 function FormularzLogowania($login, $haslo)
 {
   echo '<a href="../index.php">Cofnij</a><div class="container">
+  <a href="kontakt.php" style="top: 3em;">Kontakt</a>
     <form action="admin.php" method="post">
       <div class="blok">
         <div class="top lg">Login</div>

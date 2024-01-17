@@ -17,7 +17,12 @@ function ShowItem($conn)
             <th><form action="./shop/add.php" method="post">
             <input type="submit" name="add" value="Kup">
             <input type="hidden" name="id" value="' . $value[0] . '">
-            </form></th>
+            </form>
+            <form action="./shop/showimg.php" method="post">
+            <input type="hidden" name="id" value="' . $value[0] . '">
+            <input type="submit" name="show" value="Zdjecie">
+            </form><br>
+            </th>
             </tr>';
         }
     }
